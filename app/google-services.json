@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "728449020829",
+    "firebase_url": "https://identino-33867.firebaseio.com",
+    "project_id": "identino-33867",
+    "storage_bucket": "identino-33867.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:728449020829:android:97a7fbad12aa9c5fff7574",
+        "android_client_info": {
+          "package_name": "com.tango.identino"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "728449020829-6tbj08mesk2vteht8kutdcimgj8f56cn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tango.identino",
+            "certificate_hash": "121c35ee3a0b27b92763817a48439f768ae4bbed"
+          }
+        },
+        {
+          "client_id": "728449020829-s23uot4va7ch50i7ij1u1ilviqi2gabp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDs1aL7Flj4s7v2VKrJbrVDkx4Fc2Wqpao"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "728449020829-s23uot4va7ch50i7ij1u1ilviqi2gabp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
