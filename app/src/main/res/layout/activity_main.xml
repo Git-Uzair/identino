@@ -26,32 +26,32 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="15dp"
+            android:gravity="center"
 
-            android:gravity="center">
+            android:padding="15dp">
 
 
             <EditText
-                android:id="@+id/login_username_edit_text"
+                android:id="@+id/login_email_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="@string/login_username_hint"
-                android:textSize="20sp"
                 android:textColor="@color/orange"
                 android:textColorHint="@color/basic_bg"
+                android:textSize="20sp"
                 tools:ignore="HardcodedText" />
 
             <EditText
                 android:id="@+id/login_password_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/login_username_edit_text"
+                android:layout_below="@+id/login_email_edit_text"
                 android:hint="@string/login_password_hint"
-                android:textSize="20sp"
-                android:textColor="@color/orange"
                 android:inputType="textPassword"
+                android:textColor="@color/orange"
                 android:textColorHint="@color/basic_bg"
+                android:textSize="20sp"
                 tools:ignore="HardcodedText" />
 
             <Button
@@ -62,21 +62,25 @@
                 android:background="@android:color/transparent"
                 android:text="@string/login_btn_txt"
                 android:textAlignment="center"
-                android:textSize="20sp"
-                android:textColor="@color/orange" />
+                android:textColor="@color/orange"
+                android:textSize="20sp" />
+
             <Button
                 android:id="@+id/login_forgot_password_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/login_button"
+                android:layout_marginTop="-20dp"
                 android:background="@android:color/transparent"
                 android:text="@string/login_forgot_password_btn_txt"
                 android:textAlignment="center"
+                android:textColor="@color/colorAccent"
                 android:textSize="12sp"
-                android:layout_marginTop="-20dp"
-                android:textStyle="italic"
-                android:textColor="@color/colorAccent" />
+                android:textStyle="italic" />
+
+
         </RelativeLayout>
+
     </androidx.cardview.widget.CardView>
 
 </LinearLayout>
