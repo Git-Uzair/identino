@@ -36,6 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:inputType="textEmailAddress"
                 android:hint="@string/login_username_hint"
                 android:textColor="@color/orange"
                 android:textColorHint="@color/basic_bg"
@@ -77,6 +78,14 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="12sp"
                 android:textStyle="italic" />
+            <ProgressBar
+                android:id="@+id/login_progress_bar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/login_forgot_password_button"
+                android:layout_marginLeft="155dp"
+                android:layout_marginTop="15dp"
+                android:visibility="invisible"/>
 
 
         </RelativeLayout>

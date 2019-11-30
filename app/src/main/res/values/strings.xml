@@ -4,4 +4,7 @@
     <string name="login_password_hint">Password</string>
     <string name="login_btn_txt">Login</string>
     <string name="login_forgot_password_btn_txt">Forgot password?</string>
+    <string name="courses">Courses</string>
+    <string name="mark_attendance">Mark Attendance</string>
+    <string name="show_summary">Summary</string>
 </resources>

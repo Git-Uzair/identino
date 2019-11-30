@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "728449020829-2nojnssv328ojn56n2vp47m7gf6j4b07.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tango.identino",
+            "certificate_hash": "75d9f914a933480947596b772bdf4c45f536c281"
+          }
+        },
+        {
           "client_id": "728449020829-6tbj08mesk2vteht8kutdcimgj8f56cn.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
