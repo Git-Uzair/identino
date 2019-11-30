@@ -10,28 +10,30 @@
     tools:context=".Post_login">
 
     <TextView
-        android:textColor="@color/orange"
         android:id="@+id/post_login_username_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/product_sans"
         android:text="TextView"
-        android:textSize="50sp"
-        />
-    <TextView
         android:textColor="@color/orange"
+        android:textSize="50sp" />
+
+    <TextView
         android:id="@+id/post_login_course_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/courses"
-        android:textSize="50sp"
         android:layout_marginTop="15dp"
-        />
+        android:fontFamily="@font/product_sans"
+        android:text="@string/courses"
+        android:textColor="@color/orange"
+        android:textSize="50sp" />
 <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/courses_recycler_view"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
 </androidx.recyclerview.widget.RecyclerView>
+
 
 
 </LinearLayout>

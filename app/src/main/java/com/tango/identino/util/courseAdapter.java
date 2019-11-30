@@ -52,6 +52,14 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
             courseName=itemView.findViewById(R.id.course_name_text_view);
             markAttendanceButton=itemView.findViewById(R.id.mark_attendance_courses_layout);
             showSummaryButton=itemView.findViewById(R.id.summary_courses_layout);
+            markAttendanceButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+
         }
+
     }
 }
