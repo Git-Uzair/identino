@@ -6,5 +6,6 @@
     <color name="basic_bg">#344955</color>
     <color name="orange">#F9AA33</color>
     <color name="bg_second">#232F34</color>
+    <color name="theme_gray">#4A6572</color>
 
 </resources>

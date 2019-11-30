@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:gravity="center"
     android:padding="16dp"
     android:background="@color/basic_bg"
     android:layout_width="match_parent"
@@ -13,7 +14,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/login_cardview"
         android:layout_width="match_parent"
-        android:layout_height="408dp"
+        android:layout_height="450dp"
         android:layout_gravity="bottom"
         android:background="@color/bg_second"
         android:elevation="16dp"
@@ -21,31 +22,61 @@
         app:cardCornerRadius="10dp"
         app:cardElevation="16dp">
 
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="15dp"
 
+            android:gravity="center">
 
 
             <EditText
-                android:id="@+id/login_username_edittext"
+                android:id="@+id/login_username_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Username"
+                android:layout_marginTop="10dp"
+                android:hint="@string/login_username_hint"
+                android:textSize="20sp"
                 android:textColor="@color/orange"
-                android:textColorHint="@color/basic_bg" />
+                android:textColorHint="@color/basic_bg"
+                tools:ignore="HardcodedText" />
+
+            <EditText
+                android:id="@+id/login_password_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/login_username_edit_text"
+                android:hint="@string/login_password_hint"
+                android:textSize="20sp"
+                android:textColor="@color/orange"
+                android:inputType="textPassword"
+                android:textColorHint="@color/basic_bg"
+                tools:ignore="HardcodedText" />
 
             <Button
                 android:id="@+id/login_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/login_username_edittext"
+                android:layout_below="@+id/login_password_edit_text"
                 android:background="@android:color/transparent"
-                android:text="Login"
+                android:text="@string/login_btn_txt"
+                android:textAlignment="center"
+                android:textSize="20sp"
                 android:textColor="@color/orange" />
+            <Button
+                android:id="@+id/login_forgot_password_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/login_button"
+                android:background="@android:color/transparent"
+                android:text="@string/login_forgot_password_btn_txt"
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:layout_marginTop="-20dp"
+                android:textStyle="italic"
+                android:textColor="@color/colorAccent" />
         </RelativeLayout>
-
-
     </androidx.cardview.widget.CardView>
 
 </LinearLayout>
