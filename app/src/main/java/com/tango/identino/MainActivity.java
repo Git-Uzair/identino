@@ -16,12 +16,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button loginbtn;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
+    private FirebaseFirestore db=FirebaseFirestore.getInstance();
     private EditText Email, Password;
 
     @Override
@@ -46,12 +48,17 @@ public class MainActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
 
                             if (task.isSuccessful()) {
-                                Intent intent = new Intent(getApplicationContext(), Post_login.class);
+                                Intent intent = new Intent(getApplicationContext(), Post_login.class).putExtra("Name", String.valueOf(db.collection("instructor").whereEqualTo("uid",mAuth.getCurrentUser().getUid())));
                                 startActivity(intent);
                                 finish();
                             }
+                            else
+                            {
+                                Toast.makeText(getApplicationContext(), "Invalid credentials", Toast.LENGTH_SHORT).show();
+                            }
 
                         }
+
                     });
                 }
 
