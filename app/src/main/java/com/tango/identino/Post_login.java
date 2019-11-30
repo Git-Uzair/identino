@@ -32,6 +32,9 @@ public class Post_login extends AppCompatActivity {
         courseList.add("Course 7");
         courseList.add("Course 8");
         courseList.add("Course 9");
+        courseList.add("Course 10");
+        courseList.add("Course 11");
+        courseList.add("Course 12");
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
