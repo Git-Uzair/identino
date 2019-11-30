@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@color/basic_bg"
@@ -10,5 +10,42 @@
     tools:context=".MainActivity">
 
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/login_cardview"
+        android:layout_width="match_parent"
+        android:layout_height="408dp"
+        android:layout_gravity="bottom"
+        android:background="@color/bg_second"
+        android:elevation="16dp"
+        app:cardBackgroundColor="@color/bg_second"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="16dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+            <EditText
+                android:id="@+id/login_username_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Username"
+                android:textColor="@color/orange"
+                android:textColorHint="@color/basic_bg" />
+
+            <Button
+                android:id="@+id/login_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/login_username_edittext"
+                android:background="@android:color/transparent"
+                android:text="Login"
+                android:textColor="@color/orange" />
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>
