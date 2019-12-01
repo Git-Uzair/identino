@@ -7,4 +7,5 @@
     <string name="courses">Courses</string>
     <string name="mark_attendance">Mark Attendance</string>
     <string name="show_summary">Summary</string>
+    <string name="pop_close_btn_txt">Close</string>
 </resources>

@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private Button loginbtn;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
-    private FirebaseFirestore db=FirebaseFirestore.getInstance();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private EditText Email, Password;
     private ProgressBar loginProgressbar;
 
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         loginbtn = findViewById(R.id.login_button);
         Email = findViewById(R.id.login_email_edit_text);
         Password = findViewById(R.id.login_password_edit_text);
-        loginProgressbar=findViewById(R.id.login_progress_bar);
+        loginProgressbar = findViewById(R.id.login_progress_bar);
 
 
         loginbtn.setOnClickListener(new View.OnClickListener() {
@@ -63,21 +63,19 @@ public class MainActivity extends AppCompatActivity {
 
                             if (task.isSuccessful()) {
                                 loginProgressbar.setVisibility(View.INVISIBLE);
-                               final Intent intent = new Intent(getApplicationContext(), Post_login.class);
+                                final Intent intent = new Intent(getApplicationContext(), Post_login.class);
                                 db.collection("instructor").document(Email.getText().toString().trim()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                     @Override
                                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                                         instructor INS = documentSnapshot.toObject(instructor.class);
-                                        intent.putExtra("name",INS.getName());
+                                        intent.putExtra("name", INS.getName());
                                         startActivity(intent);
                                         finish();
                                     }
                                 });
 
 
-                            }
-                            else
-                            {
+                            } else {
                                 loginProgressbar.setVisibility(View.INVISIBLE);
                                 Toast.makeText(getApplicationContext(), "Invalid credentials", Toast.LENGTH_LONG).show();
                             }

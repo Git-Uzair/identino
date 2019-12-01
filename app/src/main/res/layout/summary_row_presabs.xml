@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="2dp"
+        android:layout_marginEnd="3dp"
+android:layout_marginBottom="2dp"
+        android:background="@color/theme_gray">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:gravity="center_horizontal"
+            android:padding="2dp"
+            android:background="@color/theme_gray"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/summary_regno"
+                android:text="Reg no"
+                android:textSize="30sp"
+                android:fontFamily="@font/product_sans"
+                android:textColor="@color/orange"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/summary_present"
+                android:text="Present"
+                android:textSize="30sp"
+                android:layout_marginLeft="30dp"
+                android:layout_toRightOf="@+id/summary_regno"
+                android:fontFamily="@font/product_sans"
+                android:textColor="@color/orange"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/summary_absent"
+                android:text="Absent"
+                android:textSize="30sp"
+                android:layout_marginLeft="30dp"
+                android:layout_toRightOf="@+id/summary_present"
+                android:fontFamily="@font/product_sans"
+                android:textColor="@color/orange"/>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

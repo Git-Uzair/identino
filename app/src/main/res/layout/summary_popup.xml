@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        app:cardCornerRadius="10dp"
+
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:gravity="center_horizontal"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/summary_regno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/product_sans"
+                android:text="Reg no"
+                android:textColor="@color/orange"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/summary_present"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_toRightOf="@+id/summary_regno"
+                android:fontFamily="@font/product_sans"
+                android:text="Present"
+                android:textColor="@color/orange"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/summary_absent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_toRightOf="@+id/summary_present"
+                android:fontFamily="@font/product_sans"
+                android:text="Absent"
+                android:textColor="@color/orange"
+                android:textSize="30sp" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/summary_recycler"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/summary_present"
+                android:padding="16dp" />
+
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+    <Button
+        android:id="@+id/pop_close_button"
+        android:background="@color/theme_gray"
+        android:text="@string/pop_close_btn_txt"
+        android:textColor="@color/orange"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+</LinearLayout>
