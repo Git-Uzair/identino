@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,13 +16,19 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.tango.identino.util.courseAdapter;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -62,7 +69,13 @@ public class MainActivity extends AppCompatActivity {
 
                             if (task.isSuccessful()) {
                                 loginProgressbar.setVisibility(View.INVISIBLE);
-                                Intent intent = new Intent(getApplicationContext(), Post_login.class).putExtra("Name", String.valueOf(db.collection("instructor").whereEqualTo("uid",mAuth.getCurrentUser().getUid())));
+                                Intent intent = new Intent(getApplicationContext(), Post_login.class);
+                                db.collection("instructor").document("u2017494@giki.edu.pk").collection("timetable").document("monday").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                                    }
+                                });
                                 startActivity(intent);
 
                                 finish();
