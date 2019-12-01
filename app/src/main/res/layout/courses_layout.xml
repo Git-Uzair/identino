@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/orange"
                 android:layout_marginRight="5dp"
-                android:background="@android:color/transparent"
+                android:background="@color/basic_bg"
                 android:text="@string/mark_attendance"/>
             <Button
                 android:id="@+id/summary_courses_layout"
@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/orange"
-                android:background="@android:color/transparent"
+                android:background="@color/basic_bg"
                 android:text="@string/show_summary"/>
 
         </RelativeLayout>
