@@ -15,22 +15,15 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.tango.identino.model.courses;
-import com.tango.identino.util.courseAdapter;
+import com.tango.identino.model.instructor;
 
-import java.util.HashMap;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -70,10 +63,18 @@ public class MainActivity extends AppCompatActivity {
 
                             if (task.isSuccessful()) {
                                 loginProgressbar.setVisibility(View.INVISIBLE);
-                                Intent intent = new Intent(getApplicationContext(), Post_login.class);
-                                startActivity(intent);
+                               final Intent intent = new Intent(getApplicationContext(), Post_login.class);
+                                db.collection("instructor").document(Email.getText().toString().trim()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        instructor INS = documentSnapshot.toObject(instructor.class);
+                                        intent.putExtra("name",INS.getName());
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                });
 
-                                finish();
+
                             }
                             else
                             {
@@ -96,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         currentUser = mAuth.getCurrentUser();
-
 
     }
 }

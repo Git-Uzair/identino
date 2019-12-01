@@ -17,18 +17,16 @@ public class Post_login extends AppCompatActivity {
     private RecyclerView recyclerView;
     private com.tango.identino.util.courseAdapter courseAdapter;
     private List<String> courseList;
-    private TextView instructorName;
+    private TextView Ins_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_login);
         recyclerView=findViewById(R.id.courses_recycler_view);
-        instructorName=findViewById(R.id.post_login_username_textView);
+        Ins_name = findViewById(R.id.post_login_username_textView);
+        Ins_name.setText(getIntent().getStringExtra("name"));
         courseList=new ArrayList<>();
-        courseList.add("Course 1");
-        courseList.add("Course 2");
-        courseList.add("Course 3");
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

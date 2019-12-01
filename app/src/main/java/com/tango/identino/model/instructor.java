@@ -22,6 +22,11 @@ public class instructor {
         this.uid = uid;
     }
 
+    public instructor()
+    {
+
+    }
+
     public instructor(String name, String uid) {
         this.name = name;
         this.uid = uid;
