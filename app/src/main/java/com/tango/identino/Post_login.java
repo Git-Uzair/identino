@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.tango.identino.util.courseAdapter;
 
@@ -16,12 +17,17 @@ public class Post_login extends AppCompatActivity {
     private RecyclerView recyclerView;
     private com.tango.identino.util.courseAdapter courseAdapter;
     private List<String> courseList;
+    private TextView Ins_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_login);
         recyclerView=findViewById(R.id.courses_recycler_view);
+        Ins_name = findViewById(R.id.post_login_username_textView);
+
+        Ins_name.setText(getIntent().getStringExtra("name"));
+
         courseList=new ArrayList<>();
         courseList.add("Course 1");
         courseList.add("Course 2");

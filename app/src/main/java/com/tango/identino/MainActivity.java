@@ -26,6 +26,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.tango.identino.model.courses;
+import com.tango.identino.model.instructor;
 import com.tango.identino.util.courseAdapter;
 
 import java.util.HashMap;
@@ -69,16 +71,18 @@ public class MainActivity extends AppCompatActivity {
 
                             if (task.isSuccessful()) {
                                 loginProgressbar.setVisibility(View.INVISIBLE);
-                                Intent intent = new Intent(getApplicationContext(), Post_login.class);
-                                db.collection("instructor").document("u2017494@giki.edu.pk").collection("timetable").document("monday").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                               final Intent intent = new Intent(getApplicationContext(), Post_login.class);
+                                db.collection("instructor").document(Email.getText().toString().trim()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                     @Override
                                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-
+                                        instructor INS = documentSnapshot.toObject(instructor.class);
+                                        intent.putExtra("name",INS.getName());
+                                        startActivity(intent);
+                                        finish();
                                     }
                                 });
-                                startActivity(intent);
 
-                                finish();
+
                             }
                             else
                             {
