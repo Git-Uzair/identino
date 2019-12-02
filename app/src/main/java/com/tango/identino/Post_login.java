@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -54,7 +56,27 @@ public class Post_login extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.sign_out_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.sign_out_menu_button:
+                if(currentUser!=null && mauth!=null)
+                {
+                    mauth.signOut();
+                    startActivity(new Intent(Post_login.this,MainActivity.class));
+                    finish();
+                }
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private void displayCourses() {
         String email = currentUser.getEmail();
