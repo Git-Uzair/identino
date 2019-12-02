@@ -9,7 +9,7 @@
         android:id="@+id/course_list_card_view"
         android:layout_width="match_parent"
         app:cardCornerRadius="10dp"
-        android:background="@color/theme_gray"
+        android:background="@color/basic_bg"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
@@ -18,7 +18,7 @@
 
         <RelativeLayout
             android:id="@+id/courses_relative_layout"
-            android:background="@color/theme_gray"
+            android:background="@color/basic_bg"
             android:gravity="center_horizontal"
             android:layout_width="match_parent"
 

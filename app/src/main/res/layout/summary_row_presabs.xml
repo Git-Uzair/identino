@@ -9,46 +9,46 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="2dp"
-        android:layout_marginEnd="3dp"
-android:layout_marginBottom="2dp"
-        android:background="@color/theme_gray">
+        android:layout_marginBottom="2dp"
+        android:background="@color/basic_bg">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:gravity="center_horizontal"
             android:padding="2dp"
-            android:background="@color/theme_gray"
+            android:background="@color/basic_bg"
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/summary_regno"
-                android:text="Reg no"
-                android:textSize="30sp"
+                android:layout_width="94dp"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/product_sans"
-                android:textColor="@color/orange"/>
+                android:text="Reg no"
+                android:textColor="@color/orange"
+                android:textSize="25sp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/summary_present"
-                android:text="Present"
-                android:textSize="30sp"
+                android:layout_width="94dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_toRightOf="@+id/summary_regno"
                 android:fontFamily="@font/product_sans"
-                android:textColor="@color/orange"/>
+                android:text="Present"
+                android:textColor="@color/orange"
+                android:textSize="25sp" />
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/summary_absent"
-                android:text="Absent"
-                android:textSize="30sp"
+                android:layout_width="94dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_toRightOf="@+id/summary_present"
                 android:fontFamily="@font/product_sans"
-                android:textColor="@color/orange"/>
+                android:text="Absent"
+                android:textColor="@color/orange"
+                android:textSize="25sp" />
 
         </RelativeLayout>
 

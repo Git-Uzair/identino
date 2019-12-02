@@ -2,29 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:padding="16dp"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
+        app:cardCornerRadius="9dp"
+        android:layout_marginBottom="-9dp"
         android:layout_height="250dp"
         android:layout_gravity="center"
-        app:cardCornerRadius="10dp"
-
+        android:background="@color/basic_bg"
         >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
+            android:paddingTop="7dp"
             android:gravity="center_horizontal"
-            android:padding="16dp">
+            android:background="@color/basic_bg"
+            >
 
             <TextView
                 android:id="@+id/summary_regno"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/product_sans"
+                android:layout_marginLeft="10dp"
                 android:text="Reg no"
                 android:textColor="@color/orange"
                 android:textSize="30sp" />
@@ -49,7 +54,8 @@
                 android:fontFamily="@font/product_sans"
                 android:text="Absent"
                 android:textColor="@color/orange"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:layout_marginRight="10dp"/>
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -70,6 +76,7 @@
         android:text="@string/pop_close_btn_txt"
         android:textColor="@color/orange"
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"/>
 
 

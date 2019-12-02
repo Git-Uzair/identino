@@ -77,6 +77,7 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
         private void popUP() {
             View View = LayoutInflater.from(context).inflate(R.layout.summary_popup, null);
             final PopupWindow pop_window = new PopupWindow(View, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+
             RecyclerView summary_recycler = View.findViewById(R.id.summary_recycler);
             List<Attendance_record> records = new ArrayList<>();
             records.add(new Attendance_record("2017494", 2, 3));
