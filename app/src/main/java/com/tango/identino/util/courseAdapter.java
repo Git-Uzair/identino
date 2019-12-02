@@ -16,6 +16,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.tango.identino.R;
 import com.tango.identino.model.Attendance_record;
 
@@ -25,6 +28,7 @@ import java.util.List;
 public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder> {
     private List<String> courseList;
     private Context context;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
     public courseAdapter(List<String> courseList, Context context) {
@@ -78,22 +82,35 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
             View View = LayoutInflater.from(context).inflate(R.layout.summary_popup, null);
             final PopupWindow pop_window = new PopupWindow(View, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
 
-            RecyclerView summary_recycler = View.findViewById(R.id.summary_recycler);
-            List<Attendance_record> records = new ArrayList<>();
-            records.add(new Attendance_record("2017494", 2, 3));
-            records.add(new Attendance_record("2017494", 2, 3));
-            records.add(new Attendance_record("2017494", 2, 3));
-            records.add(new Attendance_record("2017494", 2, 3));
-            records.add(new Attendance_record("2017494", 2, 3));
-            records.add(new Attendance_record("2017494", 2, 3));
-            SummaryAdapter summaryAdapter = new SummaryAdapter(context, records);
-            summary_recycler.setAdapter(summaryAdapter);
-            summary_recycler.setHasFixedSize(true);
-            summary_recycler.setLayoutManager(new LinearLayoutManager(context));
+            final RecyclerView summary_recycler = View.findViewById(R.id.summary_recycler);
+
+            db.collection("courses").document(courseName.getText().toString().trim()).collection("students").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                    List<Attendance_record> records = queryDocumentSnapshots.toObjects(Attendance_record.class);
+
+                    SummaryAdapter summaryAdapter = new SummaryAdapter(context, records);
+
+                    summary_recycler.setAdapter(summaryAdapter);
+                    summary_recycler.setHasFixedSize(true);
+                    summary_recycler.setLayoutManager(new LinearLayoutManager(context));
+                }
+            });
+//            List<Attendance_record> records = new ArrayList<>();
+//            records.add(new Attendance_record("2017494", 2, 3));
+//            records.add(new Attendance_record("2017494", 2, 3));
+//            records.add(new Attendance_record("2017494", 2, 3));
+//            records.add(new Attendance_record("2017494", 2, 3));
+//            records.add(new Attendance_record("2017494", 2, 3));
+//            records.add(new Attendance_record("2017494", 2, 3));
+
+
+
 
             pop_window.showAtLocation(View, Gravity.CENTER, 0, 0);
 
-            Button close=View.findViewById(R.id.pop_close_button);
+            Button close = View.findViewById(R.id.pop_close_button);
             close.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(android.view.View view) {
@@ -102,7 +119,6 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
             });
 
         }
-
 
 
     }
