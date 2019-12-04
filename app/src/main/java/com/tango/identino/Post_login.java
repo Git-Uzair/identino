@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -85,7 +86,8 @@ public class Post_login extends AppCompatActivity {
         Date now  = new Date();
         SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEEE");
 
-        db.collection("instructor").document(email).collection("timetable").document(simpleDateformat.format(now).toString().toLowerCase())
+
+        db.collection("instructor").document(email).collection("timetable").document("thursday")
                 .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
