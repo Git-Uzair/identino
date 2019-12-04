@@ -97,15 +97,6 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
                     summary_recycler.setLayoutManager(new LinearLayoutManager(context));
                 }
             });
-//            List<Attendance_record> records = new ArrayList<>();
-//            records.add(new Attendance_record("2017494", 2, 3));
-//            records.add(new Attendance_record("2017494", 2, 3));
-//            records.add(new Attendance_record("2017494", 2, 3));
-//            records.add(new Attendance_record("2017494", 2, 3));
-//            records.add(new Attendance_record("2017494", 2, 3));
-//            records.add(new Attendance_record("2017494", 2, 3));
-
-
 
 
             pop_window.showAtLocation(View, Gravity.CENTER, 0, 0);

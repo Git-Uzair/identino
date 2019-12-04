@@ -23,7 +23,9 @@ import com.tango.identino.model.courses;
 import com.tango.identino.util.SummaryAdapter;
 import com.tango.identino.util.courseAdapter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Post_login extends AppCompatActivity {
@@ -58,8 +60,10 @@ public class Post_login extends AppCompatActivity {
 
     private void displayCourses() {
         String email = currentUser.getEmail();
+        Date now  = new Date();
+        SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEEE");
 
-        db.collection("instructor").document(email).collection("timetable").document("monday")
+        db.collection("instructor").document(email).collection("timetable").document(simpleDateformat.format(now).toString().toLowerCase())
                 .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
