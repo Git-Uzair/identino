@@ -15,7 +15,7 @@ import com.otaliastudios.cameraview.frame.Frame;
 import com.otaliastudios.cameraview.frame.FrameProcessor;
 import com.theartofdev.edmodo.cropper.CropImage;
 
-public class TakePhoto extends AppCompatActivity implements FrameProcessor {
+public class TakePhoto extends AppCompatActivity {
 
 
     private ImageView imageView;
@@ -38,8 +38,5 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
         });
     }
 
-    @Override
-    public void process(@NonNull Frame frame) {
 
-    }
 }
