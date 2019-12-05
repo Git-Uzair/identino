@@ -3,23 +3,32 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".TakePhoto">
 
-    <FrameLayout
-        android:id="@+id/take_photo_frame_layout"
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/take_photo_image_view"
+        android:scaleType="centerCrop"
+        android:layout_marginBottom="34dp"
+        android:layout_marginTop="34dp"
+       android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"/>
 
-        <ImageView
-            android:id="@+id/take_photo_button"
+        <ImageButton
+            android:layout_alignBottom="@id/take_photo_image_view"
+            android:id="@+id/take_photo_camera_button"
             android:src="@android:drawable/ic_menu_camera"
-            android:layout_width="match_parent"
-            android:layout_gravity="bottom"
             android:background="@color/theme_gray"
-            android:layout_height="wrap_content"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+</RelativeLayout>
 
-    </FrameLayout>
 
 </LinearLayout>
