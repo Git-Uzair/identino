@@ -85,14 +85,16 @@ public class Post_login extends AppCompatActivity {
         Date now  = new Date();
         SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEEE");
 
-        db.collection("instructor").document(email).collection("timetable").document(simpleDateformat.format(now).toString().toLowerCase())
+        db.collection("instructor").document(email).collection("timetable").document(simpleDateformat.format(now).toLowerCase())
                 .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if(documentSnapshot.exists())
+                {
                 courses Courses = documentSnapshot.toObject(courses.class);
                 List<String> coursesList = Courses.getCourses();
                 courseAdapter = new courseAdapter(coursesList, Post_login.this);
-                recyclerView.setAdapter(courseAdapter);
+                recyclerView.setAdapter(courseAdapter);}
 
 
             }

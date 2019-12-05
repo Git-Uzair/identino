@@ -2,6 +2,7 @@ package com.tango.identino.util;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -19,7 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.tango.identino.Post_login;
 import com.tango.identino.R;
+import com.tango.identino.TakePhoto;
 import com.tango.identino.model.Attendance_record;
 
 import java.util.ArrayList;
@@ -72,6 +75,14 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
                 public void onClick(View view) {
                     popUP();
 
+                }
+            });
+
+            markAttendanceButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final Intent intent = new Intent(view.getContext(), TakePhoto.class);
+                    context.startActivity(intent);
                 }
             });
 
