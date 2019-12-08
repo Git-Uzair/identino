@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -120,5 +121,13 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
                                                  .setFormat(FirebaseVisionImageMetadata.IMAGE_FORMAT_NV21)
                                                  .setRotation(FirebaseVisionImageMetadata.ROTATION_270).build();
 
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_VOLUME_UP)){
+            //Toast.makeText(TakePhoto.this,"Volume up presses",Toast.LENGTH_LONG).show();
+            cameraView.takePicture();
+        }
+        return true;
     }
 }
