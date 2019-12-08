@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -95,12 +96,17 @@ public class Post_login extends AppCompatActivity {
                 List<String> coursesList = Courses.getCourses();
                 courseAdapter = new courseAdapter(coursesList, Post_login.this);
                 recyclerView.setAdapter(courseAdapter);}
+                else
+                {
+                    Toast.makeText(Post_login.this,"Data not found",Toast.LENGTH_LONG).show();
+                }
 
 
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                Toast.makeText(Post_login.this,"method failed",Toast.LENGTH_LONG).show();
 
             }
         });
