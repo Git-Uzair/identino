@@ -10,27 +10,30 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-
-
-    <ImageView
-        android:id="@+id/take_photo_image_view"
-        android:scaleType="centerCrop"
-        android:layout_marginBottom="34dp"
-        android:layout_marginTop="34dp"
-       android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+    <FrameLayout
+        android:id="@+id/take_frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-        <ImageButton
-            android:layout_alignBottom="@id/take_photo_image_view"
-            android:id="@+id/take_photo_camera_button"
-            android:src="@android:drawable/ic_menu_camera"
-            android:background="@color/theme_gray"
+        android:layout_height="match_parent">
+        <com.otaliastudios.cameraview.CameraView
+            android:id="@+id/camera_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent">
+        </com.otaliastudios.cameraview.CameraView>
+        <ImageView
+            android:id="@+id/take_photo_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </ImageView>
+    </FrameLayout>
+        <Button
+            android:id="@+id/take_photo_camera_button"
+            android:text="Test"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/orange"
+            android:background="@color/theme_gray"
+            android:textSize="20sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 </RelativeLayout>
-
-
 </LinearLayout>
