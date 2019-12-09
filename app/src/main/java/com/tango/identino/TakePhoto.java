@@ -98,6 +98,7 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
     {
         Paint paint=new Paint();
         paint.setColor(Color.GREEN);
+        paint.setStyle(Paint.Style.STROKE);
         paint.setTextSize(3f);
         if(firebaseVisionFaces==null||bitmap==null)
         {
