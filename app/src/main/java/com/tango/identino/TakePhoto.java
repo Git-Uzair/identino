@@ -1,4 +1,5 @@
 package com.tango.identino;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -6,14 +7,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.ml.vision.FirebaseVision;
@@ -29,7 +29,6 @@ import com.otaliastudios.cameraview.controls.Facing;
 import com.otaliastudios.cameraview.controls.Mode;
 import com.otaliastudios.cameraview.frame.Frame;
 import com.otaliastudios.cameraview.frame.FrameProcessor;
-
 import java.util.List;
 
 
@@ -97,9 +96,11 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
     private void detectFaces(List<FirebaseVisionFace> firebaseVisionFaces,Bitmap bitmap)
     {
         Paint paint=new Paint();
-        paint.setColor(Color.GREEN);
+        paint.setColor(Color.RED);
+        paint.setTextSize(20f);
         paint.setStyle(Paint.Style.STROKE);
-        paint.setTextSize(3f);
+       // paint.setStyle(Paint.Style.FILL_AND_STROKE);
+
         if(firebaseVisionFaces==null||bitmap==null)
         {
             Toast.makeText(TakePhoto.this,"errrororoor",Toast.LENGTH_LONG).show();
@@ -109,6 +110,11 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
         {
             Canvas canvas=new Canvas(bitmap);
             canvas.drawRect(firebaseVisionFaces.get(i).getBoundingBox(),paint);
+            paint.setColor(Color.BLUE);
+            paint.setTextSize(60f);
+            paint.setStyle(Paint.Style.FILL_AND_STROKE);
+            canvas.drawText("Name: Uzair Ahmed",firebaseVisionFaces.get(i).getBoundingBox().exactCenterX(),firebaseVisionFaces.get(i).getBoundingBox().exactCenterY()-500,paint);
+            canvas.drawText("Reg No.: 2017494",firebaseVisionFaces.get(i).getBoundingBox().exactCenterX(),firebaseVisionFaces.get(i).getBoundingBox().exactCenterY()-600,paint);
         }
 
     }
@@ -122,4 +128,17 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
                                                  .setRotation(FirebaseVisionImageMetadata.ROTATION_270).build();
 
     }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_VOLUME_UP)){
+            //Toast.makeText(TakePhoto.this,"Volume up presses",Toast.LENGTH_LONG).show();
+            cameraView.takePicture();
+        }
+        else if ((keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount()==0))
+        {
+                imageView.setImageBitmap(null);
+        }
+        return true;
+    }
+
 }

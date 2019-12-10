@@ -10,6 +10,7 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <FrameLayout
         android:id="@+id/take_frame_layout"
         android:layout_width="match_parent"
@@ -19,13 +20,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </com.otaliastudios.cameraview.CameraView>
+
         <ImageView
             android:id="@+id/take_photo_image_view"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
         </ImageView>
     </FrameLayout>
+
         <Button
             android:id="@+id/take_photo_camera_button"
             android:text="Test"
