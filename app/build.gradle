@@ -18,6 +18,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    aaptOptions {
+        noCompress "tflite"
+        noCompress "lite"
+    }
 }
 
 dependencies {
@@ -27,6 +31,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.2.0'
     implementation 'com.google.firebase:firebase-firestore:21.3.0'
     implementation 'com.google.firebase:firebase-analytics:17.2.1'
+    implementation 'org.tensorflow:tensorflow-lite:+'
     implementation 'com.google.firebase:firebase-ml-vision:24.0.1'
     // If you want to detect face contours (landmark detection and classification
     // don't require this additional model):
