@@ -152,49 +152,13 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
 
                                 Bitmap copy1 = bitmap1.copy(Bitmap.Config.ARGB_8888, true);
 
-                                //Attendance Marking here
+
                                 if (max < 0.4) {
                                     name = "Unknown";
 
                                 } else {
 
-                                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                                    Date date = new Date();
-                                    final String Date = dateFormat.format(date).toString();
-                                    //Mark Attendance from firebase here
-                                    //course_name is from the intent extra
-                                    //replace 2017494 with name variable when dataset is trained on reg_nos
-                                    //replace document TEST with todays date
-                                    db.collection("courses").document(course_name).collection("students").document("2017494").collection("attendance").document(Date).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                        @Override
-                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                            if (documentSnapshot.exists()) {
-                                                Toast.makeText(getApplicationContext(), "Attendance for today already marked", Toast.LENGTH_LONG).show();
-
-                                            } else {
-                                                Map<String, String> data = new HashMap<>();
-                                                data.put("status", "1");
-                                                //putting status 1 on todays date if doesn't exist
-                                                db.collection("courses").document(course_name).collection("students").document("2017494").collection("attendance").document(Date).set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        Toast.makeText(getApplicationContext(), "Attendance is marked", Toast.LENGTH_LONG).show();
-
-                                                        //setting the present to + 1
-                                                        db.collection("courses").document(course_name).collection("students").document("2017494").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                                            @Override
-                                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-                                                            }
-                                                        });
-
-                                                    }
-                                                });
-
-                                            }
-
-                                        }
-                                    });
+                                    //Attendance Marking here
 
 
                                 }
