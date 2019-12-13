@@ -9,4 +9,8 @@
     <string name="show_summary">Summary</string>
     <string name="pop_close_btn_txt">Close</string>
     <string name="sign_out_txt">Sign Out</string>
+    <string name="forgot_password_email_hint">Email</string>
+    <string name="forgot_password_reset_button_text">Reset Password</string>
+    <string name="forgot_password_close_popup_button_text">Close</string>
+    <string name="sign_out_description">Sign Out</string>
 </resources>

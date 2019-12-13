@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,33 +10,57 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     tools:context=".Post_login">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/post_login_username_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/product_sans"
-        android:text="TextView"
-        android:textColor="@color/orange"
-        android:textSize="50sp" />
+        <ImageButton
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/post_login_sign_out_button"
+            android:contentDescription="@string/sign_out_description"
+            android:src="@drawable/ic_sign_out"
+            android:background="@color/theme_gray"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-    <TextView
-        android:id="@+id/post_login_course_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/product_sans"
-        android:text="@string/courses"
-        android:textColor="@color/orange"
-        android:textSize="50sp" />
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/courses_recycler_view"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/post_login_username_textView"
+            android:layout_below="@+id/post_login_sign_out_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/product_sans"
+            android:text="TextView"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/orange"
+            android:textSize="50sp" />
 
-</androidx.recyclerview.widget.RecyclerView>
+        <TextView
+            android:id="@+id/post_login_course_textView"
+            android:layout_centerInParent="true"
+            android:layout_below="@id/post_login_username_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/product_sans"
+            android:text="@string/courses"
+            android:textColor="@color/orange"
+            android:textSize="50sp" />
+
+
+
+
+    </RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/courses_recycler_view"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 
 

@@ -136,6 +136,7 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
                         labeler.processImage(image).addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionImageLabel>>() {
                             @Override
                             public void onSuccess(List<FirebaseVisionImageLabel> firebaseVisionImageLabels) {
+                                Toast.makeText(getApplicationContext(),"success",Toast.LENGTH_LONG).show();
                                 float max = 0;
                                 String name = "";
                                 for (FirebaseVisionImageLabel label : firebaseVisionImageLabels) {
@@ -145,7 +146,7 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
                                     float confidence = label.getConfidence();
                                     if (confidence > max) {
                                         max = confidence;
-                                        name = text;
+                                       // name = text;
                                     }
                                 }
 
@@ -164,7 +165,7 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
                                 }
 
 
-                                detectFaces(firebaseVisionFaces, copy1, name);
+                                detectFaces(firebaseVisionFaces, copy1, "Gulfam");
                                 imageView.setImageBitmap(copy1);
                             }
 
@@ -187,7 +188,7 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
         Paint paint = new Paint();
         paint.setColor(Color.RED);
         paint.setTextSize(20f);
-        paint.setStyle(Paint.Style.STROKE);
+
         // paint.setStyle(Paint.Style.FILL_AND_STROKE);
 
         if (firebaseVisionFaces == null || bitmap == null) {
@@ -196,6 +197,7 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
 
         for (int i = 0; i < firebaseVisionFaces.size(); i++) {
             Canvas canvas = new Canvas(bitmap);
+            paint.setStyle(Paint.Style.STROKE);
             canvas.drawRect(firebaseVisionFaces.get(i).getBoundingBox(), paint);
             paint.setColor(Color.BLUE);
             paint.setTextSize(60f);
