@@ -127,7 +127,7 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
                     public void onSuccess(final List<FirebaseVisionFace> firebaseVisionFaces) {
 
                         if (firebaseVisionFaces.size() > 1) {
-                            Toast.makeText(getApplicationContext(), "Error: More than two individuals in the frame", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Error: More than one individual in the frame", Toast.LENGTH_LONG).show();
                             return;
                         }
 
@@ -136,6 +136,8 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
                         labeler.processImage(image).addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionImageLabel>>() {
                             @Override
                             public void onSuccess(List<FirebaseVisionImageLabel> firebaseVisionImageLabels) {
+
+
                                 float max = 0;
                                 String name = "";
                                 for (FirebaseVisionImageLabel label : firebaseVisionImageLabels) {
