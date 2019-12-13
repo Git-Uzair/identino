@@ -12,8 +12,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -39,12 +42,14 @@ public class Post_login extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mauth;
     private FirebaseUser currentUser;
+    private ImageButton signOutButton;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_login);
+        signOutButton=findViewById(R.id.post_login_sign_out_button);
         recyclerView = findViewById(R.id.courses_recycler_view);
         Ins_name = findViewById(R.id.post_login_username_textView);
         Ins_name.setText(getIntent().getStringExtra("name"));
@@ -55,31 +60,19 @@ public class Post_login extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         displayCourses();
-
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.sign_out_menu,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId())
-        {
-            case R.id.sign_out_menu_button:
+        signOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 if(currentUser!=null && mauth!=null)
                 {
                     mauth.signOut();
                     startActivity(new Intent(Post_login.this,MainActivity.class));
                     finish();
                 }
-                break;
-        }
-        return super.onOptionsItemSelected(item);
+            }
+        });
     }
+
 
     private void displayCourses() {
         String email = currentUser.getEmail();
