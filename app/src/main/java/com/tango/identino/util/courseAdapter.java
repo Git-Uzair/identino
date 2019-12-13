@@ -82,6 +82,7 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
                 @Override
                 public void onClick(View view) {
                     final Intent intent = new Intent(view.getContext(), TakePhoto.class);
+                    intent.putExtra("course_name",courseList.get(getAdapterPosition()));
                     context.startActivity(intent);
                 }
             });
