@@ -98,24 +98,31 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
         }
 
             private void popUP() {
-                View View = LayoutInflater.from(context).inflate(R.layout.summary_popup, null);
+                final View View = LayoutInflater.from(context).inflate(R.layout.summary_popup, null);
                 final PopupWindow pop_window = new PopupWindow(View, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-                RecyclerView summary_recycler = View.findViewById(R.id.summary_recycler);
+               final RecyclerView summary_recycler = View.findViewById(R.id.summary_recycler);
                 final List<Attendance_record> records = new ArrayList<>();
                 db.collection("courses").document(courseName.getText().toString()).collection("students").get()
                         .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                             @Override
                             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
-                                if (queryDocumentSnapshots.size()>0)
-                                {
-                                    records.add(new Attendance_record("querySize","Query",queryDocumentSnapshots.size(),queryDocumentSnapshots.size()));
-                                }
-
                                 for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                                     records.add(documentSnapshot.toObject(Attendance_record.class));
 
                                 }
+                                SummaryAdapter summaryAdapter = new SummaryAdapter(context, records);
+                                summary_recycler.setAdapter(summaryAdapter);
+                                summary_recycler.setHasFixedSize(true);
+                                summary_recycler.setLayoutManager(new LinearLayoutManager(context));
+                                pop_window.showAtLocation(View, Gravity.CENTER, 0, 0);
+                                Button close=View.findViewById(R.id.pop_close_button);
+                                close.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(android.view.View view) {
+                                        pop_window.dismiss();
+                                    }
+                                });
 
                             }
                         }).addOnFailureListener(new OnFailureListener() {
@@ -129,18 +136,7 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
 //                records.add(new Attendance_record("2017494", "Gul",2, 3));
 //                records.add(new Attendance_record("2017494", "Gul",2, 3));
 //                records.add(new Attendance_record("2017494", "Gul",2, 3));
-                SummaryAdapter summaryAdapter = new SummaryAdapter(context, records);
-                summary_recycler.setAdapter(summaryAdapter);
-                summary_recycler.setHasFixedSize(true);
-                summary_recycler.setLayoutManager(new LinearLayoutManager(context));
-                pop_window.showAtLocation(View, Gravity.CENTER, 0, 0);
-                Button close=View.findViewById(R.id.pop_close_button);
-                close.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(android.view.View view) {
-                        pop_window.dismiss();
-                    }
-                });
+
             }
     }
 }
