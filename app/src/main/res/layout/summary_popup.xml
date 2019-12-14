@@ -76,7 +76,6 @@
         android:text="@string/pop_close_btn_txt"
         android:textColor="@color/orange"
         android:layout_width="match_parent"
-
         android:layout_height="wrap_content"/>
 
 

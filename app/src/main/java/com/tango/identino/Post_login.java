@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,7 +37,7 @@ import java.util.List;
 
 public class Post_login extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private com.tango.identino.util.courseAdapter courseAdapter;
+    private courseAdapter courseAdapter;
     private List<String> courseList;
     private TextView Ins_name;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -88,7 +89,9 @@ public class Post_login extends AppCompatActivity {
                 courses Courses = documentSnapshot.toObject(courses.class);
                 List<String> coursesList = Courses.getCourses();
                 courseAdapter = new courseAdapter(coursesList, Post_login.this);
-                recyclerView.setAdapter(courseAdapter);}
+                recyclerView.setAdapter(courseAdapter);
+                courseAdapter.notifyDataSetChanged();
+                }
                 else
                 {
                     Toast.makeText(Post_login.this,"Data not found",Toast.LENGTH_LONG).show();

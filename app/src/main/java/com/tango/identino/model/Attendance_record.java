@@ -12,6 +12,8 @@ public class Attendance_record {
     public Attendance_record() {
     }
 
+
+
     public Attendance_record(String regno, String name, int present, int absent) {
         this.regno = regno;
         this.name = name;
