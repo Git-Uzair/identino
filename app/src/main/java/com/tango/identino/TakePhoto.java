@@ -1,14 +1,12 @@
 package com.tango.identino;
-
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.media.Image;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -21,7 +19,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.ml.common.FirebaseMLException;
 import com.google.firebase.ml.vision.FirebaseVision;
@@ -41,19 +38,12 @@ import com.otaliastudios.cameraview.controls.Facing;
 import com.otaliastudios.cameraview.controls.Mode;
 import com.otaliastudios.cameraview.frame.Frame;
 import com.otaliastudios.cameraview.frame.FrameProcessor;
-import com.tango.identino.model.Attendance_record;
-
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 
 public class TakePhoto extends AppCompatActivity implements FrameProcessor {
-    private Button cameraButton;
+    private Button cameraButton,exitButton;
     private CameraView cameraView;
     private ImageView imageView;
     private FirebaseAutoMLLocalModel localModel;
@@ -65,14 +55,10 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_take_photo);
-
         course_name = getIntent().getStringExtra("course_name");
-
         localModel = new FirebaseAutoMLLocalModel.Builder()
                 .setAssetFilePath("manifest.json")
                 .build();
-
-
         labeler = FirebaseVision.getInstance().getOnDeviceImageLabeler();
         try {
             FirebaseVisionOnDeviceAutoMLImageLabelerOptions options =
@@ -85,7 +71,7 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
             // ...
         }
 
-
+        exitButton=findViewById(R.id.exit_take_photo_activity);
         cameraButton = findViewById(R.id.take_photo_camera_button);
         cameraView = findViewById(R.id.camera_view);
         cameraView.setFacing(Facing.FRONT);
@@ -93,10 +79,26 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
         cameraView.addFrameProcessor(TakePhoto.this);
         imageView = findViewById(R.id.take_photo_image_view);
         cameraView.setMode(Mode.PICTURE);
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cameraView.takePicture();
+                imageView.setImageBitmap(null);
+                cameraView.open();
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Do something after 5s = 5000ms
+                        cameraView.takePicture();
+                    }
+                }, 300);
+
 
             }
         });
@@ -106,12 +108,9 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
             public void onPictureTaken(@NonNull PictureResult result) {
                 super.onPictureTaken(result);
                 byte[] bitmap = result.getData();
-
                 final Bitmap bitmap1 = BitmapFactory.decodeByteArray(bitmap, 0, bitmap.length);
-
-
                 imageView.setImageBitmap(bitmap1);
-
+                cameraView.close();
 
                 if (bitmap1 == null) {
                     Toast.makeText(TakePhoto.this, "hello ji", Toast.LENGTH_LONG).show();
@@ -121,7 +120,6 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
                         .setLandmarkMode(FirebaseVisionFaceDetectorOptions.ALL_LANDMARKS)
                         .setClassificationMode(FirebaseVisionFaceDetectorOptions.ALL_CLASSIFICATIONS).build();
                 FirebaseVisionFaceDetector firebaseVisionFaceDetector = FirebaseVision.getInstance().getVisionFaceDetector(options);
-
                 firebaseVisionFaceDetector.detectInImage(firebaseVisionImage).addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionFace>>() {
                     @Override
                     public void onSuccess(final List<FirebaseVisionFace> firebaseVisionFaces) {
@@ -131,48 +129,32 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
                             return;
                         }
 
-
                         FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(bitmap1);
                         labeler.processImage(image).addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionImageLabel>>() {
                             @Override
                             public void onSuccess(List<FirebaseVisionImageLabel> firebaseVisionImageLabels) {
-
-
                                 float max = 0;
                                 String name = "";
                                 for (FirebaseVisionImageLabel label : firebaseVisionImageLabels) {
-
                                     String text = label.getText();
-
                                     float confidence = label.getConfidence();
                                     if (confidence > max) {
                                         max = confidence;
                                         name = text;
                                     }
                                 }
-
-
                                 Bitmap copy1 = bitmap1.copy(Bitmap.Config.ARGB_8888, true);
-
-
                                 if (max < 0.4) {
                                     name = "Unknown";
 
                                 } else {
-
                                     //Attendance Marking here
-
-
                                 }
-
 
                                 detectFaces(firebaseVisionFaces, copy1, name);
                                 imageView.setImageBitmap(copy1);
                             }
-
                         });
-
-
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -223,10 +205,33 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
             //Toast.makeText(TakePhoto.this,"Volume up presses",Toast.LENGTH_LONG).show();
             cameraView.takePicture();
         } else if ((keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)) {
+            onBackPressed();
             imageView.setImageBitmap(null);
         }
         return true;
     }
 
-
+//    boolean doubleBackToExitPressedOnce = false;
+//
+//    @Override
+//    public void onBackPressed() {
+//        if (doubleBackToExitPressedOnce) {
+//            super.onBackPressed();
+//            return;
+//        }
+//
+//        this.doubleBackToExitPressedOnce = true;
+//        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+//
+//        new Handler().postDelayed(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                doubleBackToExitPressedOnce=false;
+//               // Intent intent=new Intent(TakePhoto.this,Post_login.class);
+//                //startActivity(intent);
+//                finish();
+//            }
+//        }, 2000);
+//    }
 }

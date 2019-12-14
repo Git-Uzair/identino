@@ -1,5 +1,6 @@
 package com.tango.identino.util;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -84,6 +85,11 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
                     final Intent intent = new Intent(view.getContext(), TakePhoto.class);
                     intent.putExtra("course_name",courseList.get(getAdapterPosition()));
                     context.startActivity(intent);
+//                    if (context instanceof Post_login)
+//                    {
+//                        ((Activity)(context)).finish();
+//                    }
+
                 }
             });
 
