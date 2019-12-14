@@ -86,8 +86,16 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (!cameraView.isOpened())
+                {
+                    Toast.makeText(getApplicationContext(),"Press Back Button to Take picture again",Toast.LENGTH_LONG).show();
+                }
+                else
+                {
                     cameraView.takePicture();
+
+                }
+
             }
         });
 
@@ -160,7 +168,6 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
         paint.setColor(Color.RED);
         paint.setTextSize(20f);
         paint.setStyle(Paint.Style.STROKE);
-        // paint.setStyle(Paint.Style.FILL_AND_STROKE);
 
         if (firebaseVisionFaces == null || bitmap == null) {
             Toast.makeText(TakePhoto.this, "errrororoor", Toast.LENGTH_LONG).show();
