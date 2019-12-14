@@ -199,10 +199,10 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
         for (int i = 0; i < firebaseVisionFaces.size(); i++) {
             Canvas canvas = new Canvas(bitmap);
             canvas.drawRect(firebaseVisionFaces.get(i).getBoundingBox(), paint);
-            paint.setColor(Color.BLUE);
+            paint.setColor(Color.GREEN);
             paint.setTextSize(60f);
             paint.setStyle(Paint.Style.FILL_AND_STROKE);
-            canvas.drawText("Name: " + name, firebaseVisionFaces.get(i).getBoundingBox().exactCenterX(), firebaseVisionFaces.get(i).getBoundingBox().exactCenterY() - 500, paint);
+            canvas.drawText("Reg: " + name, firebaseVisionFaces.get(i).getBoundingBox().exactCenterX(), firebaseVisionFaces.get(i).getBoundingBox().exactCenterY() - 500, paint);
         }
 
     }
