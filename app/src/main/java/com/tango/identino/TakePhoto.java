@@ -88,16 +88,8 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                imageView.setImageBitmap(null);
-                cameraView.open();
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        // Do something after 5s = 5000ms
-                        cameraView.takePicture();
-                    }
-                }, 300);
+
+                    cameraView.takePicture();
 
 
             }
@@ -205,33 +197,9 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
             //Toast.makeText(TakePhoto.this,"Volume up presses",Toast.LENGTH_LONG).show();
             cameraView.takePicture();
         } else if ((keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)) {
-            onBackPressed();
+            cameraView.open();
             imageView.setImageBitmap(null);
         }
         return true;
     }
-
-//    boolean doubleBackToExitPressedOnce = false;
-//
-//    @Override
-//    public void onBackPressed() {
-//        if (doubleBackToExitPressedOnce) {
-//            super.onBackPressed();
-//            return;
-//        }
-//
-//        this.doubleBackToExitPressedOnce = true;
-//        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
-//
-//        new Handler().postDelayed(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//                doubleBackToExitPressedOnce=false;
-//               // Intent intent=new Intent(TakePhoto.this,Post_login.class);
-//                //startActivity(intent);
-//                finish();
-//            }
-//        }, 2000);
-//    }
 }
