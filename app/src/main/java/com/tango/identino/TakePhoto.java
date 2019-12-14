@@ -23,6 +23,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.ml.common.FirebaseMLException;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.automl.FirebaseAutoMLLocalModel;
@@ -60,6 +62,7 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
     private FirebaseVisionImageLabeler labeler;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String course_name;
+    private Map<String, Integer> attendance = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +100,29 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
             @Override
             public void onClick(View view) {
                 cameraView.takePicture();
+
+            }
+        });
+
+
+        //fetching all students from the firebase database for given subject to local hashmap
+        db.collection("courses").document(course_name).collection("students").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                for (QueryDocumentSnapshot snap : queryDocumentSnapshots) {
+
+                    attendance.put(snap.get("regno").toString(), 0);
+
+                }
+
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+                Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
 
             }
         });
@@ -139,7 +165,7 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
 
 
                                 float max = 0;
-                                String name = "";
+                                String reg = "";
                                 for (FirebaseVisionImageLabel label : firebaseVisionImageLabels) {
 
                                     String text = label.getText();
@@ -147,7 +173,7 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
                                     float confidence = label.getConfidence();
                                     if (confidence > max) {
                                         max = confidence;
-                                        name = text;
+                                        reg = text;
                                     }
                                 }
 
@@ -156,17 +182,48 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
 
 
                                 if (max < 0.4) {
-                                    name = "Unknown";
+                                    reg = "Unknown";
 
                                 } else {
 
+
                                     //Attendance Marking here
+
+                                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                                    Date date = new Date();
+                                    final String Date = dateFormat.format(date).toString();
+                                    //Mark Attendance from firebase here
+                                    //course_name is from the intent extra
+                                    //replace 2017494 with name variable when dataset is trained on reg_nos
+                                    //replace document TEST with todays date
+                                    final String finalReg = reg;
+                                    db.collection("courses").document(course_name).collection("students").document(reg).collection("attendance").document(Date).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                            if (documentSnapshot.exists()) {
+                                                Toast.makeText(getApplicationContext(), "Attendance for today already marked for " + finalReg, Toast.LENGTH_LONG).show();
+
+                                            } else {
+                                                //mark attendance locally
+                                                //save attendance to hashmap
+                                                if (attendance.get(finalReg) == 1) {
+                                                    Toast.makeText(getApplicationContext(), "Attendance for today already marked for " + finalReg, Toast.LENGTH_LONG).show();
+                                                } else {
+                                                    attendance.put(finalReg, 1);
+                                                    Toast.makeText(getApplicationContext(), "Attendance Marked for " + finalReg, Toast.LENGTH_LONG).show();
+                                                }
+
+
+                                            }
+
+                                        }
+                                    });
 
 
                                 }
 
 
-                                detectFaces(firebaseVisionFaces, copy1, name);
+                                detectFaces(firebaseVisionFaces, copy1, reg);
                                 imageView.setImageBitmap(copy1);
                             }
 
@@ -185,7 +242,7 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
     }
 
 
-    private void detectFaces(List<FirebaseVisionFace> firebaseVisionFaces, Bitmap bitmap, String name) {
+    private void detectFaces(List<FirebaseVisionFace> firebaseVisionFaces, Bitmap bitmap, String reg) {
         Paint paint = new Paint();
         paint.setColor(Color.RED);
         paint.setTextSize(20f);
@@ -202,7 +259,7 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
             paint.setColor(Color.GREEN);
             paint.setTextSize(60f);
             paint.setStyle(Paint.Style.FILL_AND_STROKE);
-            canvas.drawText("Reg: " + name, firebaseVisionFaces.get(i).getBoundingBox().exactCenterX(), firebaseVisionFaces.get(i).getBoundingBox().exactCenterY() - 500, paint);
+            canvas.drawText("Reg: " + reg, firebaseVisionFaces.get(i).getBoundingBox().exactCenterX(), firebaseVisionFaces.get(i).getBoundingBox().exactCenterY() - 500, paint);
         }
 
     }
