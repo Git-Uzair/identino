@@ -19,6 +19,11 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.ViewHold
     private Context context;
     private List<Attendance_record> recordList;
 
+    public  SummaryAdapter()
+    {
+
+    }
+
     public SummaryAdapter(Context context, List<Attendance_record> recordList) {
         this.context = context;
         this.recordList = recordList;
