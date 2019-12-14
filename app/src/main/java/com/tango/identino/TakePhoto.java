@@ -1,12 +1,10 @@
 package com.tango.identino;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -90,8 +88,6 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
             public void onClick(View view) {
 
                     cameraView.takePicture();
-
-
             }
         });
 
@@ -194,7 +190,6 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {
-            //Toast.makeText(TakePhoto.this,"Volume up presses",Toast.LENGTH_LONG).show();
             cameraView.takePicture();
         } else if ((keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)) {
             cameraView.open();
