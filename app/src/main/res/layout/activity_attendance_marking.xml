@@ -19,11 +19,23 @@
         android:fontFamily="@font/product_sans"
         android:textAlignment="center"/>
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/text_commit"
+        android:id="@+id/prog_bar_status"
+        android:visibility="invisible"
+        android:layout_marginTop="200dp"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="40dp"
         android:id="@+id/commit_recycle"
         android:layout_below="@+id/text_commit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
 
 
 

@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
                                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                                         instructor INS = documentSnapshot.toObject(instructor.class);
                                         intent.putExtra("name", INS.getName());
+                                        
                                         instructor.setPassword(Password.getText().toString());
 
                                         startActivity(intent);
