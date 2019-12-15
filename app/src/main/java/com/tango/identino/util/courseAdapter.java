@@ -24,6 +24,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.tango.identino.R;
 import com.tango.identino.TakePhoto;
 import com.tango.identino.model.Attendance_record;
+import com.tango.identino.model.instructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +73,7 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
         public Button markAttendanceButton;
         public Button showSummaryButton;
 
-        public ViewHolder(@NonNull View itemView, final Context ctx) {
+        public ViewHolder(@NonNull final View itemView, final Context ctx) {
             super(itemView);
             context = ctx;
             courseName = itemView.findViewById(R.id.course_name_text_view);

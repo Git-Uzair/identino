@@ -3,8 +3,17 @@ package com.tango.identino.model;
 import java.util.List;
 
 public class instructor {
-    private String name;
-    private String uid;
+    public static String name;
+    public static String uid;
+    public static String password;
+
+    public static String getPassword() {
+        return password;
+    }
+
+    public static void setPassword(String password) {
+        instructor.password = password;
+    }
 
     public String getName() {
         return name;

@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Admin"></activity>
+        <activity android:name=".Attendance_marking"></activity>
+        <activity android:name=".Admin" />
         <activity android:name=".TakePhoto" />
         <activity android:name=".Post_login" />
         <activity android:name=".MainActivity">
