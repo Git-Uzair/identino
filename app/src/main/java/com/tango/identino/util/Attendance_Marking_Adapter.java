@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,6 +39,9 @@ public class Attendance_Marking_Adapter extends RecyclerView.Adapter<Attendance_
     @Override
     public void onBindViewHolder(@NonNull Attendance_Marking_Adapter.ViewHolder holder, int position) {
 
+        holder.status.setText(String.valueOf(record.get(position).getStatus()));
+        holder.reg_no.setText(record.get(position).getRegno());
+
 
     }
 
@@ -47,8 +51,15 @@ public class Attendance_Marking_Adapter extends RecyclerView.Adapter<Attendance_
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public ViewHolder(@NonNull View itemView, Context context) {
+
+        public TextView reg_no, status;
+
+        public ViewHolder(@NonNull View itemView, Context ctx) {
             super(itemView);
+
+            reg_no = itemView.findViewById(R.id.attendance_reg);
+            status = itemView.findViewById(R.id.attendance_status);
+            context=ctx;
 
 
 
