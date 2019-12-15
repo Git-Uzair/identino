@@ -29,6 +29,7 @@ import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions;
 import com.google.firebase.ml.vision.label.FirebaseVisionImageLabel;
 import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler;
 import com.google.firebase.ml.vision.label.FirebaseVisionOnDeviceAutoMLImageLabelerOptions;
+import com.google.firebase.ml.vision.label.FirebaseVisionOnDeviceImageLabelerOptions;
 import com.otaliastudios.cameraview.CameraListener;
 import com.otaliastudios.cameraview.CameraView;
 import com.otaliastudios.cameraview.PictureResult;
@@ -54,6 +55,16 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_take_photo);
         course_name = getIntent().getStringExtra("course_name");
+        //Image labeler/Mobile detector model instances//
+        FirebaseVisionOnDeviceImageLabelerOptions mobileDetectorOptions =
+     new FirebaseVisionOnDeviceImageLabelerOptions.Builder()
+         .setConfidenceThreshold(0.7f)
+         .build();
+ final FirebaseVisionImageLabeler objectLabeler = FirebaseVision.getInstance()
+     .getOnDeviceImageLabeler(mobileDetectorOptions);
+
+ ////Image labeler/Mobile detector model instances ends here//
+
         localModel = new FirebaseAutoMLLocalModel.Builder()
                 .setAssetFilePath("manifest.json")
                 .build();
@@ -111,7 +122,35 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
                 if (bitmap1 == null) {
                     Toast.makeText(TakePhoto.this, "hello ji", Toast.LENGTH_LONG).show();
                 }
+
+
+
                 FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.fromBitmap(bitmap1);
+                //Detecting Mobile///
+
+//                objectLabeler.processImage(firebaseVisionImage).addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionImageLabel>>() {
+//                    @Override
+//                    public void onSuccess(List<FirebaseVisionImageLabel> firebaseVisionImageLabels) {
+//                        for (FirebaseVisionImageLabel firebaseVisionImageLabel: firebaseVisionImageLabels)
+//                        {
+//                            Log.d("mobiledec", "onSuccess: "+firebaseVisionImageLabel.getText());
+//                            if(firebaseVisionImageLabel.getText().equals("Mobile Phone"))
+//                            {
+//                                Toast.makeText(getApplicationContext(),"Mobile Phone detected",Toast.LENGTH_LONG).show();
+//                            }
+//                        }
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.d("mobiledec", "onSuccess: it sucks");
+//
+//                    }
+//                });
+
+                //Detecting Mobile end///
+
+
                 FirebaseVisionFaceDetectorOptions options = new FirebaseVisionFaceDetectorOptions.Builder().setPerformanceMode(FirebaseVisionFaceDetectorOptions.FAST)
                         .setLandmarkMode(FirebaseVisionFaceDetectorOptions.ALL_LANDMARKS)
                         .setClassificationMode(FirebaseVisionFaceDetectorOptions.ALL_CLASSIFICATIONS).build();
