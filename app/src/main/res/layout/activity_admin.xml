@@ -4,9 +4,78 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@color/basic_bg"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Admin">
+    <RelativeLayout
+        android:id="@+id/admin_relative_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/admin_name_text_view"
+            android:text="Gulfam Hussain"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:background="@color/theme_gray"
+            android:textColor="@color/orange"
+            android:padding="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/admin_add_instructor_button"
+            android:layout_below="@id/admin_name_text_view"
+            android:background="@color/theme_gray"
+            android:text="@string/admin_add_instructor_str"
+            android:padding="10dp"
+            android:textColor="@color/orange"
+            android:textSize="15sp"
+            android:layout_marginLeft="62dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/admin_add_course_button"
+            android:background="@color/theme_gray"
+            android:text="@string/admin_add_course_str"
+            android:padding="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@+id/admin_name_text_view"
+            android:layout_toRightOf="@+id/admin_add_instructor_button"
+            android:textColor="@color/orange"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/admin_remove_instructor_button"
+            android:layout_below="@id/admin_add_instructor_button"
+            android:background="@color/theme_gray"
+            android:text="@string/admin_remove_instructor_str"
+            android:padding="10dp"
+            android:layout_marginTop="30dp"
+            android:textColor="@color/orange"
+            android:textSize="15sp"
+            android:layout_marginLeft="62dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/admin_remove_course_button"
+            android:background="@color/theme_gray"
+            android:text="@string/admin_remove_course_str"
+            android:padding="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@id/admin_add_course_button"
+            android:layout_toRightOf="@+id/admin_add_instructor_button"
+            android:textColor="@color/orange"
+            android:layout_marginTop="30dp"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+
+    </RelativeLayout>
+
 
 </LinearLayout>
