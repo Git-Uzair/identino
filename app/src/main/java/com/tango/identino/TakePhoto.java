@@ -99,6 +99,7 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
 
                 Intent intent = new Intent(getApplicationContext(), Attendance_marking.class);
                 intent.putExtra("attendance", (Serializable) attendance);
+                intent.putExtra("course_name",course_name);
                 startActivity(intent);
 
 
