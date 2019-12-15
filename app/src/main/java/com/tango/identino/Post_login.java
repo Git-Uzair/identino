@@ -86,6 +86,7 @@ public class Post_login extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if(documentSnapshot.exists())
                 {
+
                 courses Courses = documentSnapshot.toObject(courses.class);
                 List<String> coursesList = Courses.getCourses();
                 courseAdapter = new courseAdapter(coursesList, Post_login.this);

@@ -1,4 +1,6 @@
 package com.tango.identino;
+
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -40,6 +42,7 @@ import com.otaliastudios.cameraview.controls.Mode;
 import com.otaliastudios.cameraview.frame.Frame;
 import com.otaliastudios.cameraview.frame.FrameProcessor;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -49,7 +52,7 @@ import java.util.Map;
 
 
 public class TakePhoto extends AppCompatActivity implements FrameProcessor {
-    private Button cameraButton,exitButton;
+    private Button cameraButton, exitButton;
     private CameraView cameraView;
     private ImageView imageView;
     private FirebaseAutoMLLocalModel localModel;
@@ -57,6 +60,7 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String course_name;
     private Map<String, Integer> attendance = new HashMap<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +82,8 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
             // ...
         }
 
-        exitButton=findViewById(R.id.exit_take_photo_activity);
+
+        exitButton = findViewById(R.id.exit_take_photo_activity);
         cameraButton = findViewById(R.id.take_photo_camera_button);
         cameraView = findViewById(R.id.camera_view);
         cameraView.setFacing(Facing.FRONT);
@@ -90,16 +95,16 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
             @Override
             public void onClick(View view) {
 
-                    //add password check and then push changes to the firebase
+                //start new intent
+
+                Intent intent = new Intent(getApplicationContext(), Attendance_marking.class);
+                intent.putExtra("attendance", (Serializable) attendance);
+                startActivity(intent);
 
 
-
-                finish();
+                //  finish();
             }
         });
-
-
-
 
 
         //fetching all students from the firebase database for given subject to local hashmap
@@ -125,21 +130,12 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
         });
 
 
-
-
-
-
-
-
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!cameraView.isOpened())
-                {
-                    Toast.makeText(getApplicationContext(),"Press Back Button to Take picture again",Toast.LENGTH_LONG).show();
-                }
-                else
-                {
+                if (!cameraView.isOpened()) {
+                    Toast.makeText(getApplicationContext(), "Press Back Button to Take picture again", Toast.LENGTH_LONG).show();
+                } else {
                     cameraView.takePicture();
 
                 }
@@ -195,8 +191,6 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
                                     //Attendance Marking here
 
 
-
-
                                     //Attendance Marking here
 
                                     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -228,12 +222,6 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
 
                                         }
                                     });
-
-
-
-
-
-
 
 
                                 }

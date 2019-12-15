@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 forgotPasswordProgressBar.setVisibility(View.INVISIBLE);
-                                Toast.makeText(getApplicationContext(),"Invalid email address",Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(),"Invalid email address"+e.toString(),Toast.LENGTH_LONG).show();
 
                             }
                         });
@@ -119,6 +119,8 @@ public class MainActivity extends AppCompatActivity {
                                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                                         instructor INS = documentSnapshot.toObject(instructor.class);
                                         intent.putExtra("name", INS.getName());
+                                        instructor.setPassword(Password.getText().toString());
+
                                         startActivity(intent);
                                         finish();
                                     }
