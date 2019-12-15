@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -119,7 +120,10 @@ public class MainActivity extends AppCompatActivity {
                                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                                         instructor INS = documentSnapshot.toObject(instructor.class);
                                         intent.putExtra("name", INS.getName());
-                                        
+                                        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+                                        SharedPreferences.Editor editor = pref.edit();
+                                        editor.putString("instructor_name", INS.getName());
+                                        editor.commit();
                                         instructor.setPassword(Password.getText().toString());
 
                                         startActivity(intent);

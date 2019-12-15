@@ -143,9 +143,10 @@ public class Attendance_marking extends AppCompatActivity {
                             }
 
                             bar.setVisibility(View.INVISIBLE);
-                            Intent intent = new Intent(Attendance_marking.this,Post_login.class);
+                            Intent intent = new Intent(Attendance_marking.this, Post_login.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
-finish();
+
                             //attendance
 
 
