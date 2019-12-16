@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -53,7 +54,8 @@ public class Post_login extends AppCompatActivity {
         signOutButton=findViewById(R.id.post_login_sign_out_button);
         recyclerView = findViewById(R.id.courses_recycler_view);
         Ins_name = findViewById(R.id.post_login_username_textView);
-        Ins_name.setText(getIntent().getStringExtra("name"));
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        Ins_name.setText(pref.getString("instructor_name",null));
         courseList = new ArrayList<>();
         mauth = FirebaseAuth.getInstance();
         currentUser = mauth.getCurrentUser();

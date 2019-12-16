@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
         <TextView
             android:id="@+id/admin_name_text_view"
-            android:text="Gulfam Hussain"
+
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
             android:background="@color/theme_gray"
@@ -35,9 +35,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <Button
-            android:id="@+id/admin_add_course_button"
+            android:id="@+id/admin_add_student_button"
             android:background="@color/theme_gray"
-            android:text="@string/admin_add_course_str"
+            android:text="@string/admin_add_student_str"
             android:padding="10dp"
             android:layout_marginLeft="20dp"
             android:layout_below="@+id/admin_name_text_view"
@@ -60,12 +60,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <Button
-            android:id="@+id/admin_remove_course_button"
+            android:id="@+id/admin_remove_student_button"
             android:background="@color/theme_gray"
-            android:text="@string/admin_remove_course_str"
+            android:text="@string/admin_remove_student_str"
             android:padding="10dp"
             android:layout_marginLeft="20dp"
-            android:layout_below="@id/admin_add_course_button"
+            android:layout_below="@id/admin_add_student_button"
             android:layout_toRightOf="@+id/admin_add_instructor_button"
             android:textColor="@color/orange"
             android:layout_marginTop="30dp"

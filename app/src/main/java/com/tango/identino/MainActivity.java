@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -23,7 +24,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+import com.google.firestore.v1.WriteResult;
 import com.tango.identino.model.instructor;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.view.View.VISIBLE;
 
@@ -74,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
                         FirebaseAuth.getInstance().sendPasswordResetEmail(forgotPasswordEmail.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-
                                 forgotPasswordProgressBar.setVisibility(View.INVISIBLE);
                                 Toast.makeText(getApplicationContext(),"Email sent successfully",Toast.LENGTH_LONG).show();
                             }
@@ -118,12 +124,23 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                                         instructor INS = documentSnapshot.toObject(instructor.class);
-                                        intent.putExtra("name", INS.getName());
-                                        
-                                        instructor.setPassword(Password.getText().toString());
+                                        if (INS.getAdmin()==true) {
+                                            Intent intent=new Intent(MainActivity.this,Admin.class);
+                                            intent.putExtra("name",INS.getName());
+                                            startActivity(intent);
+                                            finish();
 
+                                        } else
+                                        {
+                                        intent.putExtra("name", INS.getName());
+                                        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+                                        SharedPreferences.Editor editor = pref.edit();
+                                        editor.putString("instructor_name", INS.getName());
+                                        editor.commit();
+                                        instructor.setPassword(Password.getText().toString());
                                         startActivity(intent);
                                         finish();
+                                    }
                                     }
                                 });
 

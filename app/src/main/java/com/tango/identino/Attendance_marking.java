@@ -100,7 +100,7 @@ public class Attendance_marking extends AppCompatActivity {
                             for (final Single_Attendance_status e : records) {
 
                                 //uncomment below to delete todays attendance from database for test
-                               db.collection("courses").document(course_name).collection("students").document(e.getRegno()).collection("attendance").document(Date).delete();
+//                                db.collection("courses").document(course_name).collection("students").document(e.getRegno()).collection("attendance").document(Date).delete();
 
 
                                 db.collection("courses").document(course_name).collection("students").document(e.getRegno()).collection("attendance").document(Date).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -143,9 +143,10 @@ public class Attendance_marking extends AppCompatActivity {
                             }
 
                             bar.setVisibility(View.INVISIBLE);
-                            Intent intent = new Intent(Attendance_marking.this,Post_login.class);
+                            Intent intent = new Intent(Attendance_marking.this, Post_login.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
-                            finish();
+
                             //attendance
 
 
