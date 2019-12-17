@@ -9,6 +9,8 @@
     tools:context=".Admin">
     <RelativeLayout
         android:id="@+id/admin_relative_layout"
+        android:gravity="center_horizontal"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -32,98 +34,211 @@
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/admin_add_instructor_card_view"
+        <LinearLayout
+            android:id="@+id/admin_ins_linear_layout"
             android:layout_below="@+id/admin_name_text_view"
-            android:layout_marginHorizontal="35dp"
-            android:layout_marginBottom="10dp"
-            app:cardElevation="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_width="150dp"
-            android:layout_height="150dp">
-            <Button
-                android:id="@+id/admin_add_instructor_button"
-                android:background="@color/theme_gray"
-                android:text="@string/admin_add_instructor_str"
-                android:layout_gravity="bottom"
-                android:padding="10dp"
-                android:textColor="@color/orange"
-                android:textAlignment="center"
-                android:textSize="15sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/admin_add_instructor_card_view"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                app:cardElevation="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp">
+                <ImageView
+                    android:id="@+id/admin_add_instructor_image_view"
+                    android:src="@drawable/ic_addinstructor"
+                    android:scaleType="fitXY"
+                    android:paddingLeft="25dp"
+                    android:paddingBottom="7dp"
+                    android:layout_width="125dp"
+                    android:layout_height="115dp"/>
+                <Button
+                    android:id="@+id/admin_add_instructor_button"
+                    android:background="@color/bg_second"
+                    android:text="@string/admin_add_instructor_str"
+                    android:layout_gravity="bottom"
+                    android:padding="10dp"
+                    android:textColor="@color/orange"
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:id="@+id/admin_add_student_card_view"
-            android:layout_below="@+id/admin_name_text_view"
-            android:layout_toRightOf="@+id/admin_add_instructor_card_view"
-            android:layout_marginHorizontal="35dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            app:cardElevation="10dp"
-            android:layout_width="150dp"
-            android:layout_height="150dp">
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/admin_add_student_card_view"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"
+                app:cardElevation="10dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp">
 
-            <Button
-                android:id="@+id/admin_add_student_button"
-                android:background="@color/theme_gray"
-                android:text="@string/admin_add_student_str"
-                android:textAlignment="center"
-                android:textColor="@color/orange"
-                android:layout_gravity="bottom"
-                android:textSize="15sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                <ImageView
+                    android:id="@+id/admin_remove_instructor_image_view"
+                    android:src="@drawable/ic_removeinstructor"
+                    android:scaleType="fitXY"
+                    android:paddingLeft="25dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="11dp"
+                    android:layout_width="135dp"
+                    android:layout_height="110dp"/>
 
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:id="@+id/admin_remove_instructor_card_view"
-            android:layout_marginHorizontal="35dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            app:cardElevation="10dp"
-            android:layout_below="@id/admin_add_instructor_card_view">
-            <Button
-                android:id="@+id/admin_remove_instructor_button"
-                android:background="@color/theme_gray"
-                android:text="@string/admin_remove_instructor_str"
-                android:layout_gravity="bottom"
-                android:padding="10dp"
-                android:textColor="@color/orange"
-                android:textSize="15sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                <Button
+                    android:id="@+id/admin_remove_instructor_button"
+                    android:background="@color/bg_second"
+                    android:text="@string/admin_remove_instructor_str"
+                    android:layout_gravity="bottom"
+                    android:padding="10dp"
+                    android:textColor="@color/orange"
+                    android:textSize="12sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:id="@+id/admin_remove_student_card_view"
-            android:layout_marginHorizontal="35dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            app:cardElevation="10dp"
-            android:layout_below="@+id/admin_add_student_card_view"
-            android:layout_toRightOf="@+id/admin_remove_instructor_card_view">
-            <Button
-                android:id="@+id/admin_remove_student_button"
-                android:background="@color/theme_gray"
-                android:text="@string/admin_remove_student_str"
-                android:padding="10dp"
-                android:layout_below="@id/admin_add_student_button"
-                android:textColor="@color/orange"
-                android:textSize="15sp"
-                android:layout_gravity="bottom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            </androidx.cardview.widget.CardView>
 
 
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/admin_stu_linear_layout"
+            android:layout_below="@+id/admin_ins_linear_layout"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/admin_remove_instructor_card_view"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:cardElevation="10dp">
+                <ImageView
+                    android:id="@+id/admin_add_student_image_view"
+                    android:src="@drawable/ic_addstudent"
+                    android:scaleType="fitXY"
+                    android:paddingTop="3dp"
+                    android:paddingLeft="25dp"
+                    android:paddingBottom="9dp"
+                    android:layout_width="125dp"
+                    android:layout_height="105dp"/>
+                <Button
+                    android:id="@+id/admin_add_student_button"
+                    android:background="@color/bg_second"
+                    android:text="@string/admin_add_student_str"
+                    android:textAlignment="center"
+                    android:textColor="@color/orange"
+                    android:layout_gravity="bottom"
+                    android:textSize="12sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
-        </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/admin_remove_student_card_view"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:cardElevation="10dp">
+                <ImageView
+                    android:id="@+id/admin_remove_student_image_view"
+                    android:src="@drawable/ic_removestudent"
+                    android:scaleType="fitXY"
+                    android:paddingLeft="25dp"
+                    android:paddingBottom="9dp"
+                    android:paddingTop="4dp"
+                    android:layout_width="125dp"
+                    android:layout_height="105dp"/>
+                <Button
+                    android:id="@+id/admin_remove_student_button"
+                    android:background="@color/bg_second"
+                    android:text="@string/admin_remove_student_str"
+                    android:padding="10dp"
+                    android:layout_below="@id/admin_add_student_button"
+                    android:textColor="@color/orange"
+                    android:textSize="12sp"
+                    android:layout_gravity="bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+
+<LinearLayout
+    android:id="@+id/admin_course_linear_layout"
+    android:layout_below="@+id/admin_stu_linear_layout"
+    android:gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/admin_add_course_card_view"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:cardElevation="10dp">
+        <ImageView
+            android:id="@+id/admin_add_course_image_view"
+            android:src="@drawable/ic_addcourse"
+            android:scaleType="fitXY"
+            android:paddingTop="3dp"
+            android:paddingLeft="10dp"
+            android:layout_width="125dp"
+            android:layout_height="105dp"/>
+        <Button
+            android:id="@+id/admin_add_course_button"
+            android:background="@color/bg_second"
+            android:text="@string/admin_add_course_str"
+            android:layout_gravity="bottom"
+            android:padding="10dp"
+            android:textColor="@color/orange"
+            android:textSize="12sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/admin_remove_course_card_view"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:cardElevation="10dp">
+        <ImageView
+            android:id="@+id/admin_remove_course_image_view"
+            android:src="@drawable/ic_removecourse"
+            android:scaleType="fitXY"
+            android:paddingLeft="25dp"
+            android:paddingBottom="9dp"
+            android:layout_width="125dp"
+            android:layout_height="110dp"/>
+        <Button
+            android:id="@+id/admin_remove_course_button"
+            android:background="@color/bg_second"
+            android:text="@string/admin_remove_course_str"
+            android:padding="10dp"
+            android:layout_below="@id/admin_add_student_button"
+            android:textColor="@color/orange"
+            android:textSize="12sp"
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
 
 
     </RelativeLayout>
