@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,13 +40,16 @@ public class Admin extends AppCompatActivity implements View.OnClickListener {
 
     private Button addInstructor, removeInstructor, addStudent, removeStudent;
     private TextView adminName;
+    private ImageButton signOutbtn;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth auth=FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
+        signOutbtn=findViewById(R.id.admin_sign_out_button);
         addInstructor = findViewById(R.id.admin_add_instructor_button);
         addStudent = findViewById(R.id.admin_add_student_button);
         removeInstructor = findViewById(R.id.admin_remove_instructor_button);
@@ -57,6 +61,7 @@ public class Admin extends AppCompatActivity implements View.OnClickListener {
         removeInstructor.setOnClickListener(this);
         removeStudent.setOnClickListener(this);
         addStudent.setOnClickListener(this);
+        signOutbtn.setOnClickListener(this);
     }
 
     @Override
@@ -78,10 +83,22 @@ public class Admin extends AppCompatActivity implements View.OnClickListener {
                 removeStudentFunc();
             }
             break;
+            case R.id.admin_sign_out_button:
+            {
+                adminSignOut();
+            }
+            break;
         }
 
     }
 
+    public void adminSignOut()
+    {
+        auth.signOut();
+        Intent intent=new Intent(Admin.this,MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
     public void addInstructorFunc() {
             addInstructorMakeDialog();
     }

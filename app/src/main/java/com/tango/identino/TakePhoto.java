@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -55,7 +56,8 @@ import java.util.Objects;
 
 
 public class TakePhoto extends AppCompatActivity implements FrameProcessor {
-    private Button cameraButton, exitButton;
+    private Button exitButton;
+    private ImageButton cameraButton;
     private CameraView cameraView;
     private ImageView imageView;
     private FirebaseAutoMLLocalModel localModel;

@@ -11,9 +11,17 @@
         android:id="@+id/admin_relative_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <ImageButton
+            android:id="@+id/admin_sign_out_button"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_signout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/admin_name_text_view"
-
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
             android:background="@color/theme_gray"
