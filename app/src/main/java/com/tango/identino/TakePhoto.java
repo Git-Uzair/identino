@@ -68,6 +68,7 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_take_photo);
         course_name = getIntent().getStringExtra("course_name");
+
         //Image labeler/Mobile detector model instances//
         FirebaseVisionOnDeviceImageLabelerOptions mobileDetectorOptions =
      new FirebaseVisionOnDeviceImageLabelerOptions.Builder()

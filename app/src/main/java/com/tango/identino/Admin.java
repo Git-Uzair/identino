@@ -22,13 +22,18 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 import com.tango.identino.model.instructor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Admin extends AppCompatActivity implements View.OnClickListener {
 
@@ -51,6 +56,7 @@ public class Admin extends AppCompatActivity implements View.OnClickListener {
         addInstructor.setOnClickListener(this);
         removeInstructor.setOnClickListener(this);
         removeStudent.setOnClickListener(this);
+        addStudent.setOnClickListener(this);
     }
 
     @Override
@@ -77,10 +83,11 @@ public class Admin extends AppCompatActivity implements View.OnClickListener {
     }
 
     public void addInstructorFunc() {
-
+            addInstructorMakeDialog();
     }
 
     public void addStudentFunc() {
+        addStudentMakeDialog();
 
     }
 
@@ -187,12 +194,10 @@ public class Admin extends AppCompatActivity implements View.OnClickListener {
                         list.add("2 exit please");
 
                     }
-                    // else
-                    //{
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(Admin.this, android.R.layout.simple_spinner_item, list);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     dropdown.setAdapter(adapter);
-                    //}
+                    
                 }
 
             }
@@ -248,6 +253,212 @@ public class Admin extends AppCompatActivity implements View.OnClickListener {
 
         AlertDialog alert11 = builder1.create();
         alert11.show();
+    }
+
+
+    public void addStudentMakeDialog()
+    {
+        final LinearLayout layout = new LinearLayout(Admin.this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        final TextView coursesLabel = new TextView(Admin.this);
+        final EditText regNo = new EditText(Admin.this);
+        final Spinner dropdown = new Spinner(Admin.this);
+        final EditText stuName=new EditText(Admin.this);
+        final List<String> list=new ArrayList<>();
+        // dropdown.setDropDownWidth(30);
+        //  final String[] items = new String[]{"1", "2", "three"};
+        coursesLabel.setText("Select Course: ");
+        regNo.setHint("Reg No.");
+        stuName.setHint("Name");
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(Admin.this);
+        builder1.setTitle("Add Student");
+        builder1.setMessage("Fill the field below to add Student.");
+        layout.addView(regNo);
+        layout.addView(stuName);
+        layout.addView(coursesLabel);
+        layout.addView(dropdown);
+        builder1.setView(layout);
+        builder1.setCancelable(false);
+        final String[] courseName = new String[1];
+
+        db.collection("courses").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                String tmp = "";
+
+                if (queryDocumentSnapshots.isEmpty()) {
+                    Toast.makeText(Admin.this, "No courses in database.", Toast.LENGTH_LONG).show();
+                    return;
+                } else {
+                    for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                        tmp = (documentSnapshot.getId());
+                        list.add(tmp);
+                    }
+                    if(list.isEmpty())
+                    {
+                        Toast.makeText(Admin.this, "No courses in database.", Toast.LENGTH_LONG).show();
+                        return;
+
+                    }
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(Admin.this, android.R.layout.simple_spinner_item, list);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    dropdown.setAdapter(adapter);
+
+                }
+
+            }
+        });
+
+        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                courseName[0]=adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        builder1.setPositiveButton(
+                "Add Student",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        final String text = regNo.getText().toString().trim();
+                        final String name=stuName.getText().toString().trim();
+                        db.collection("courses").document(courseName[0]).collection("students").document(text).get()
+                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                                        if (documentSnapshot.exists())
+                                        {
+                                            Toast.makeText(Admin.this,"Student already exists in this course",Toast.LENGTH_LONG).show();
+                                        }
+                                        else
+                                        {
+                                            final Map<String, Object> data = new HashMap<>();
+                                            data.put("regno",text);
+                                            data.put("name",name);
+                                            data.put("absent",0);
+                                            data.put("present",0);
+                                            db.collection("courses").document(courseName[0]).collection("students").document(text)
+                                                    .set(data, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+
+                                                    Toast.makeText(Admin.this,"Student Added successfully",Toast.LENGTH_LONG).show();
+                                                    data.clear();
+                                                    data.put("status",0);
+                                                    db.collection("courses").document(courseName[0]).collection("students").document(text)
+                                                            .collection("attendance").document("initial").set(data,SetOptions.merge())
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    Toast.makeText(Admin.this,"Student Added successfully",Toast.LENGTH_LONG).show();
+                                                                }
+                                                            });
+                                                }
+                                            });
+                                        }
+                                    }
+                                });
+
+                        dialog.cancel();
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+
+    }
+    public void addInstructorMakeDialog()
+    {
+        final LinearLayout layout = new LinearLayout(Admin.this);
+        final EditText email = new EditText(Admin.this);
+        final EditText password=new EditText(Admin.this);
+        final EditText insName=new EditText(Admin.this);
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(Admin.this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        password.setHint("Password");
+        insName.setHint("Name");
+        email.setHint("Email");
+        builder1.setTitle("Add Instructor");
+        builder1.setMessage("Fill the field below to add Instructor.");
+        layout.addView(insName);
+        layout.addView(email);
+        layout.addView(password);
+        builder1.setView(layout);
+        builder1.setCancelable(false);
+
+
+        builder1.setPositiveButton(
+                "Add Instructor",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        final String text = email.getText().toString().trim();
+                        final String text1=password.getText().toString().trim();
+                        final String name=insName.getText().toString().trim();
+                        final Map<String, Object> data = new HashMap<>();
+                        data.put("name",name);
+                        data.put("admin",false);
+                                db.collection("instructor").document(text).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                                        if (documentSnapshot.exists()&&documentSnapshot.get("admin")==(Boolean)false)
+                                        {
+                                            Toast.makeText(Admin.this,"Instructor already exists",Toast.LENGTH_LONG).show();
+                                        }
+                                        else
+                                        {
+                                            //Query for add instructor will be added here.//
+                                            FirebaseAuth auth=FirebaseAuth.getInstance();
+                                            auth.createUserWithEmailAndPassword(text,text1).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                                    if (task.isSuccessful())
+                                                    {
+                                                       String uid=task.getResult().getUser().getUid();
+                                                        data.put("uid",uid);
+                                                        db.collection("instructor").document(text).set(data,SetOptions.merge())
+                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                    @Override
+                                                                    public void onSuccess(Void aVoid) {
+                                                                        Toast.makeText(Admin.this,"Instructor added successfully",Toast.LENGTH_LONG).show();
+                                                                    }
+                                                                });
+                                                    }
+                                                }
+                                            });
+                                        }
+
+                                    }
+                                });
+                        dialog.cancel();
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+
     }
 
 }
