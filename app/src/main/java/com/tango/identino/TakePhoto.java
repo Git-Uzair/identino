@@ -270,7 +270,17 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
                                         @Override
                                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                                             if (documentSnapshot.exists()) {
-                                                Toast.makeText(getApplicationContext(), "Attendance for today already marked for " + finalReg, Toast.LENGTH_LONG).show();
+                                                if(documentSnapshot.toObject(Single_Attendance_status.class).getStatus()==0)
+                                                {
+                                                    attendance.put(finalReg,1);
+                                                    Toast.makeText(getApplicationContext(), "Attendance for today updated for " + finalReg, Toast.LENGTH_LONG).show();
+                                                }
+                                                else
+                                                {
+                                                    Toast.makeText(getApplicationContext(), "Attendance for today already marked for " + finalReg, Toast.LENGTH_LONG).show();
+                                                }
+
+
 
                                             } else {
                                                 //mark attendance locally

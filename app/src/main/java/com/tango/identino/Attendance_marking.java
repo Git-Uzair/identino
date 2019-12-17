@@ -103,38 +103,39 @@ public class Attendance_marking extends AppCompatActivity {
 //                                db.collection("courses").document(course_name).collection("students").document(e.getRegno()).collection("attendance").document(Date).delete();
 
 
-                                db.collection("courses").document(course_name).collection("students").document(e.getRegno()).collection("attendance").document(Date).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                //lagani hai from the list
+                                Map<String, Integer> data = new HashMap<>();
+                                data.put("status", e.getStatus());
+                                Log.d("checktoday", "onSuccess: name: " + e.getRegno() + "  " + e.getStatus());
+                                db.collection("courses").document(course_name).collection("students").document(e.getRegno()).collection("attendance").document(Date).set(data, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
-                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                        if (documentSnapshot.exists()) {
-                                            //lag chuki hai
+                                    public void onSuccess(Void aVoid) {
 
-                                        } else {
-                                            //lagani hai from the list
-                                            Map<String, Integer> data = new HashMap<>();
-                                            data.put("status", e.getStatus());
-                                            db.collection("courses").document(course_name).collection("students").document(e.getRegno()).collection("attendance").document(Date).set(data);
+                                        db.collection("courses").document(course_name).collection("students").document(e.getRegno()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
 
-                                            db.collection("courses").document(course_name).collection("students").document(e.getRegno()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                                @Override
-                                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-                                                    Attendance_record record = documentSnapshot.toObject(Attendance_record.class);
-                                                    if (e.getStatus() == 1) {
-                                                        Map<String, Integer> present = new HashMap<>();
-                                                        present.put("present", record.getPresent() + 1);
-                                                        db.collection("courses").document(course_name).collection("students").document(e.getRegno()).set(present, SetOptions.merge());
-                                                    } else {
-                                                        Map<String, Integer> absent = new HashMap<>();
-                                                        absent.put("absent", record.getAbsent() + 1);
-                                                        db.collection("courses").document(course_name).collection("students").document(e.getRegno()).set(absent, SetOptions.merge());
-                                                    }
-
+                                                Attendance_record record = documentSnapshot.toObject(Attendance_record.class);
+                                                if (e.getStatus() == 1) {
+                                                    Map<String, Integer> present = new HashMap<>();
+                                                    present.put("present", record.getPresent() + 1);
+                                                    db.collection("courses").document(course_name).collection("students").document(e.getRegno()).set(present, SetOptions.merge());
+                                                } else {
+                                                    Map<String, Integer> absent = new HashMap<>();
+                                                    absent.put("absent", record.getAbsent() + 1);
+                                                    db.collection("courses").document(course_name).collection("students").document(e.getRegno()).set(absent, SetOptions.merge());
                                                 }
-                                            });
+
+                                                bar.setVisibility(View.INVISIBLE);
+                                                Intent intent = new Intent(Attendance_marking.this, Post_login.class);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                Toast.makeText(getApplicationContext(),"Attendance Committed to Database",Toast.LENGTH_LONG);
+                                                startActivity(intent);
 
 
-                                        }
+                                            }
+                                        });
+
 
                                     }
                                 });
@@ -142,11 +143,6 @@ public class Attendance_marking extends AppCompatActivity {
 
                             }
 
-                            bar.setVisibility(View.INVISIBLE);
-                            Intent intent = new Intent(Attendance_marking.this, Post_login.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
-                            Log.d("BACK", "onClick: testing if going back");
 
                             //attendance
 

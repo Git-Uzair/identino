@@ -14,7 +14,6 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:gravity="center"
             android:padding="2dp"
             android:background="@color/basic_bg"
             android:layout_height="wrap_content">
@@ -25,16 +24,18 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/product_sans"
                 android:text="Reg no"
+                android:layout_marginLeft="20dp"
                 android:textColor="@color/orange"
                 android:textSize="25sp" />
 
             <TextView
                 android:id="@+id/attendance_status"
-                android:layout_width="94dp"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/attendance_reg"
                 android:fontFamily="@font/product_sans"
                 android:text="Status"
+                android:layout_marginLeft="120dp"
                 android:textColor="@color/orange"
                 android:textSize="25sp" />
 
