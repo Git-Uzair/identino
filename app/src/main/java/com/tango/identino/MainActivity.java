@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                                         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
                                         SharedPreferences.Editor editor = pref.edit();
                                         editor.putString("instructor_name", INS.getName());
-                                        editor.commit();
+                                        editor.apply();
                                         instructor.setPassword(Password.getText().toString());
 
                                         startActivity(intent);
