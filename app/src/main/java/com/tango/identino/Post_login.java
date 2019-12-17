@@ -40,7 +40,7 @@ public class Post_login extends AppCompatActivity {
     private RecyclerView recyclerView;
     private courseAdapter courseAdapter;
     private List<String> courseList;
-    private TextView Ins_name;
+    private TextView Ins_name, date_txt;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mauth;
     private FirebaseUser currentUser;
@@ -59,6 +59,10 @@ public class Post_login extends AppCompatActivity {
         courseList = new ArrayList<>();
         mauth = FirebaseAuth.getInstance();
         currentUser = mauth.getCurrentUser();
+        date_txt = findViewById(R.id.date);
+        Date now  = new Date();
+        SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEEE");
+        date_txt.setText(simpleDateformat.format(now));
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

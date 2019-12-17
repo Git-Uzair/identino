@@ -9,8 +9,8 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        app:cardCornerRadius="9dp"
-        android:layout_marginBottom="-9dp"
+        app:cardCornerRadius="5dp"
+        android:layout_marginBottom="-5dp"
         android:layout_height="250dp"
         android:layout_gravity="center"
         android:background="@color/basic_bg"
@@ -72,7 +72,7 @@
     </androidx.cardview.widget.CardView>
     <Button
         android:id="@+id/pop_close_button"
-        android:background="@color/theme_gray"
+        android:background="@color/bg_second"
         android:text="@string/pop_close_btn_txt"
         android:textColor="@color/orange"
         android:layout_width="match_parent"
