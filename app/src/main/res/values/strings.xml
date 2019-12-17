@@ -14,4 +14,12 @@
     <string name="forgot_password_close_popup_button_text">Close</string>
     <string name="sign_out_description">Sign Out</string>
     <string name="exit_camera">Exit</string>
+    <string name="admin_add_str">Add Instructor</string>
+    <string name="admin_add_instructor_str">Add Instructor</string>
+    <string name="admin_add_course_str">Add Course</string>
+    <string name="admin_remove_instructor_str">Remove Instructor</string>
+    <string name="admin_remove_course_str">Remove Course</string>
+    <string name="admin_add_student_str">Add Student</string>
+    <string name="admin_remove_student_str">Remove Student</string>
+    <string name="add_remove_email_hint">Email</string>
 </resources>

@@ -5,15 +5,8 @@ import java.util.List;
 public class instructor {
     public  String name;
     public  String uid;
+    public Boolean admin;
     public static String password;
-
-    public static String getPassword() {
-        return password;
-    }
-
-    public static void setPassword(String password) {
-        instructor.password = password;
-    }
 
     public String getName() {
         return name;
@@ -31,13 +24,30 @@ public class instructor {
         this.uid = uid;
     }
 
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
+    }
+
+    public static String getPassword() {
+        return password;
+    }
+
+    public static void setPassword(String password) {
+        instructor.password = password;
+    }
+
     public instructor()
     {
 
     }
 
-    public instructor(String name, String uid) {
+    public instructor(String name, String uid, Boolean admin) {
         this.name = name;
         this.uid = uid;
+        this.admin = admin;
     }
 }
