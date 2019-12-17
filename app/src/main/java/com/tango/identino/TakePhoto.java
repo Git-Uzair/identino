@@ -42,6 +42,7 @@ import com.otaliastudios.cameraview.controls.Facing;
 import com.otaliastudios.cameraview.controls.Mode;
 import com.otaliastudios.cameraview.frame.Frame;
 import com.otaliastudios.cameraview.frame.FrameProcessor;
+import com.tango.identino.model.Single_Attendance_status;
 
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -50,6 +51,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class TakePhoto extends AppCompatActivity implements FrameProcessor {
@@ -93,7 +95,9 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
         } catch (FirebaseMLException e) {
             // ...
         }
-
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        final String Date = dateFormat.format(date).toString();
 
         exitButton = findViewById(R.id.exit_take_photo_activity);
         cameraButton = findViewById(R.id.take_photo_camera_button);
@@ -124,12 +128,32 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
         db.collection("courses").document(course_name).collection("students").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                Log.d("check", "onSuccess: "+"working");
+                for (final QueryDocumentSnapshot snap : queryDocumentSnapshots) {
 
-                for (QueryDocumentSnapshot snap : queryDocumentSnapshots) {
+                    db.collection("courses").document(course_name).collection("students").document(snap.get("regno").toString()).collection("attendance").document(Date).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
 
-                    attendance.put(snap.get("regno").toString(), 0);
+                            if(documentSnapshot.exists())
+                            {
+                                attendance.put(snap.get("regno").toString(),documentSnapshot.toObject(Single_Attendance_status.class).getStatus());
+                            }
+                            else
+                            {
+                                attendance.put(Objects.requireNonNull(snap.get("regno")).toString(), 0);
+                            }
+
+                        }
+                    });
+
+
 
                 }
+
+
+
+
 
 
             }
@@ -234,9 +258,7 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
 
                                     //Attendance Marking here
 
-                                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                                    Date date = new Date();
-                                    final String Date = dateFormat.format(date).toString();
+
                                     //Mark Attendance from firebase here
                                     //course_name is from the intent extra
                                     //replace 2017494 with name variable when dataset is trained on reg_nos

@@ -146,6 +146,7 @@ public class Attendance_marking extends AppCompatActivity {
                             Intent intent = new Intent(Attendance_marking.this, Post_login.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
+                            Log.d("BACK", "onClick: testing if going back");
 
                             //attendance
 
