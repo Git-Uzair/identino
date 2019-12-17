@@ -22,6 +22,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -382,13 +384,19 @@ public class Admin extends AppCompatActivity implements View.OnClickListener {
     public void addInstructorMakeDialog()
     {
         final LinearLayout layout = new LinearLayout(Admin.this);
-        layout.setOrientation(LinearLayout.VERTICAL);
         final EditText email = new EditText(Admin.this);
-        email.setHint("Email");
+        final EditText password=new EditText(Admin.this);
+        final EditText insName=new EditText(Admin.this);
         AlertDialog.Builder builder1 = new AlertDialog.Builder(Admin.this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        password.setHint("Password");
+        insName.setHint("Name");
+        email.setHint("Email");
         builder1.setTitle("Add Instructor");
         builder1.setMessage("Fill the field below to add Instructor.");
+        layout.addView(insName);
         layout.addView(email);
+        layout.addView(password);
         builder1.setView(layout);
         builder1.setCancelable(false);
 
@@ -398,25 +406,42 @@ public class Admin extends AppCompatActivity implements View.OnClickListener {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         final String text = email.getText().toString().trim();
-                                db.collection("instructor").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        final String text1=password.getText().toString().trim();
+                        final String name=insName.getText().toString().trim();
+                        final Map<String, Object> data = new HashMap<>();
+                        data.put("name",name);
+                        data.put("admin",false);
+                                db.collection("instructor").document(text).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                     @Override
-                                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                        if (queryDocumentSnapshots.isEmpty())
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                                        if (documentSnapshot.exists()&&documentSnapshot.get("admin")==(Boolean)false)
                                         {
-                                            Toast.makeText(Admin.this,"No instructor exists in the database",Toast.LENGTH_LONG).show();
+                                            Toast.makeText(Admin.this,"Instructor already exists",Toast.LENGTH_LONG).show();
                                         }
                                         else
                                         {
-                                            for (DocumentSnapshot documentSnapshot: queryDocumentSnapshots)
-                                            {
-                                                if (documentSnapshot.getId()==text && documentSnapshot.get("admin")==(Boolean)false)
-                                                {
-                                                    Toast.makeText(Admin.this,"Instructor Already Exists",Toast.LENGTH_LONG).show();
-                                                    return;
+                                            //Query for add instructor will be added here.//
+                                            FirebaseAuth auth=FirebaseAuth.getInstance();
+                                            auth.createUserWithEmailAndPassword(text,text1).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                                    if (task.isSuccessful())
+                                                    {
+                                                       String uid=task.getResult().getUser().getUid();
+                                                        data.put("uid",uid);
+                                                        db.collection("instructor").document(text).set(data,SetOptions.merge())
+                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                    @Override
+                                                                    public void onSuccess(Void aVoid) {
+                                                                        Toast.makeText(Admin.this,"Instructor added successfully",Toast.LENGTH_LONG).show();
+                                                                    }
+                                                                });
+                                                    }
                                                 }
-                                            }
-                                           //Query for add instructor will be added here.//
+                                            });
                                         }
+
                                     }
                                 });
                         dialog.cancel();
