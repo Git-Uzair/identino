@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -45,6 +46,7 @@ public class Post_login extends AppCompatActivity {
     private FirebaseAuth mauth;
     private FirebaseUser currentUser;
     private ImageButton signOutButton;
+    private ProgressBar bar;
 
 
     @Override
@@ -63,6 +65,8 @@ public class Post_login extends AppCompatActivity {
         Date now  = new Date();
         SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEEE");
         date_txt.setText(simpleDateformat.format(now));
+        bar = findViewById(R.id.progress_post_login);
+
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -85,15 +89,16 @@ public class Post_login extends AppCompatActivity {
         String email = currentUser.getEmail();
         Date now  = new Date();
         SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEEE");
-
+        bar.setVisibility(View.VISIBLE);
         db.collection("instructor").document(email).collection("timetable").document(simpleDateformat.format(now).toLowerCase())
                 .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if(documentSnapshot.exists())
                 {
+                    bar.setVisibility(View.INVISIBLE);
 
-                courses Courses = documentSnapshot.toObject(courses.class);
+                    courses Courses = documentSnapshot.toObject(courses.class);
                 List<String> coursesList = Courses.getCourses();
                 courseAdapter = new courseAdapter(coursesList, Post_login.this);
                 recyclerView.setAdapter(courseAdapter);
@@ -109,6 +114,8 @@ public class Post_login extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                bar.setVisibility(View.INVISIBLE);
+
                 Toast.makeText(Post_login.this,"method failed",Toast.LENGTH_LONG).show();
 
             }

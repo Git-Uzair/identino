@@ -75,13 +75,13 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
 
         //Image labeler/Mobile detector model instances//
         FirebaseVisionOnDeviceImageLabelerOptions mobileDetectorOptions =
-     new FirebaseVisionOnDeviceImageLabelerOptions.Builder()
-         .setConfidenceThreshold(0.7f)
-         .build();
- final FirebaseVisionImageLabeler objectLabeler = FirebaseVision.getInstance()
-     .getOnDeviceImageLabeler(mobileDetectorOptions);
+                new FirebaseVisionOnDeviceImageLabelerOptions.Builder()
+                        .setConfidenceThreshold(0.7f)
+                        .build();
+        final FirebaseVisionImageLabeler objectLabeler = FirebaseVision.getInstance()
+                .getOnDeviceImageLabeler(mobileDetectorOptions);
 
- ////Image labeler/Mobile detector model instances ends here//
+        ////Image labeler/Mobile detector model instances ends here//
 
         localModel = new FirebaseAutoMLLocalModel.Builder()
                 .setAssetFilePath("manifest.json")
@@ -117,7 +117,7 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
 
                 Intent intent = new Intent(getApplicationContext(), Attendance_marking.class);
                 intent.putExtra("attendance", (Serializable) attendance);
-                intent.putExtra("course_name",course_name);
+                intent.putExtra("course_name", course_name);
                 startActivity(intent);
 
 
@@ -130,32 +130,26 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
         db.collection("courses").document(course_name).collection("students").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                Log.d("check", "onSuccess: "+"working");
+                Log.d("check", "onSuccess: " + "working");
                 for (final QueryDocumentSnapshot snap : queryDocumentSnapshots) {
 
                     db.collection("courses").document(course_name).collection("students").document(snap.get("regno").toString()).collection("attendance").document(Date).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
 
-                            if(documentSnapshot.exists())
-                            {
-                                attendance.put(snap.get("regno").toString(),documentSnapshot.toObject(Single_Attendance_status.class).getStatus());
-                            }
-                            else
-                            {
+                            if (documentSnapshot.exists()) {
+                                attendance.put(snap.get("regno").toString(), documentSnapshot.toObject(Single_Attendance_status.class).getStatus());
+                            } else {
                                 attendance.put(Objects.requireNonNull(snap.get("regno")).toString(), 0);
                             }
 
+
+                            //code
                         }
                     });
 
 
-
                 }
-
-
-
-
 
 
             }
@@ -194,7 +188,6 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
                 if (bitmap1 == null) {
                     Toast.makeText(TakePhoto.this, "hello ji", Toast.LENGTH_LONG).show();
                 }
-
 
 
                 FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.fromBitmap(bitmap1);
@@ -270,16 +263,12 @@ public class TakePhoto extends AppCompatActivity implements FrameProcessor {
                                         @Override
                                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                                             if (documentSnapshot.exists()) {
-                                                if(documentSnapshot.toObject(Single_Attendance_status.class).getStatus()==0)
-                                                {
-                                                    attendance.put(finalReg,1);
+                                                if (documentSnapshot.toObject(Single_Attendance_status.class).getStatus() == 0) {
+                                                    attendance.put(finalReg, 1);
                                                     Toast.makeText(getApplicationContext(), "Attendance for today updated for " + finalReg, Toast.LENGTH_LONG).show();
-                                                }
-                                                else
-                                                {
+                                                } else {
                                                     Toast.makeText(getApplicationContext(), "Attendance for today already marked for " + finalReg, Toast.LENGTH_LONG).show();
                                                 }
-
 
 
                                             } else {

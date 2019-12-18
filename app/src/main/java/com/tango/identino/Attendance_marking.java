@@ -129,7 +129,7 @@ public class Attendance_marking extends AppCompatActivity {
                                                 bar.setVisibility(View.INVISIBLE);
                                                 Intent intent = new Intent(Attendance_marking.this, Post_login.class);
                                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                Toast.makeText(getApplicationContext(),"Attendance Committed to Database",Toast.LENGTH_LONG);
+                                                Toast.makeText(getApplicationContext(), "Attendance Committed to Database", Toast.LENGTH_LONG);
                                                 startActivity(intent);
 
 
@@ -154,7 +154,13 @@ public class Attendance_marking extends AppCompatActivity {
 
                 alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
+                        String value = input.getText().toString();
                         // Canceled.
+                        if (value.equals(instructor.getPassword())) {
+                            Intent intent = new Intent(Attendance_marking.this, Post_login.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        }
                     }
                 });
 
