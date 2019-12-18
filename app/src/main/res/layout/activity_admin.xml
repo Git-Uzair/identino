@@ -34,6 +34,12 @@
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+        <ProgressBar
+            android:id="@+id/admin_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="invisible"
+            android:layout_height="wrap_content"/>
         <LinearLayout
             android:id="@+id/admin_ins_linear_layout"
             android:layout_below="@+id/admin_name_text_view"
